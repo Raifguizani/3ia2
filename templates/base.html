@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Recruitment Assistant{% endblock %}</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-green: #00a651;
+            --secondary-green: #007a3b;
+            --accent-green: #e0f7ea;
+            --light-gray: #f8f9fa;
+            --medium-gray: #e9ecef;
+            --dark-gray: #495057;
+            --border-color: #dee2e6;
+        }
+        
+        /* General Styles */
+        body {
+            background-color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-green);
+            border-color: var(--primary-green);
+        }
+        
+        .btn-primary:hover, .btn-primary:focus {
+            background-color: var(--secondary-green);
+            border-color: var(--secondary-green);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-green);
+            border-color: var(--primary-green);
+        }
+        
+        .btn-outline-primary:hover, .btn-outline-primary:focus {
+            background-color: var(--primary-green);
+            border-color: var(--primary-green);
+            color: white;
+        }
+        
+        .text-primary {
+            color: var(--primary-green) !important;
+        }
+        
+        .bg-primary {
+            background-color: var(--primary-green) !important;
+        }
+        
+        .border-primary {
+            border-color: var(--primary-green) !important;
+        }
+        
+        .badge-skill {
+            margin-right: 5px;
+            margin-bottom: 5px;
+            background-color: var(--accent-green);
+            color: var(--secondary-green);
+            font-weight: 500;
+            border: 1px solid var(--primary-green);
+        }
+        
+        /* Custom Card Styles */
+        .card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .card:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-header {
+            background-color: white;
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 500;
+            padding: 15px 20px;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        /* Navigation Bar Styling */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            padding: 15px 0;
+        }
+        
+        .navbar-brand {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            color: var(--primary-green);
+            font-size: 1.5rem;
+        }
+        
+        .navbar-light .navbar-nav .nav-link {
+            color: var(--dark-gray);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            transition: color 0.2s;
+        }
+        
+        .navbar-light .navbar-nav .nav-link:hover,
+        .navbar-light .navbar-nav .nav-link:focus,
+        .navbar-light .navbar-nav .nav-link.active {
+            color: var(--primary-green);
+        }
+        
+        /* Admin Sidebar */
+        .sidebar {
+            min-height: calc(100vh - 76px);
+            background-color: white;
+            border-right: 1px solid var(--border-color);
+            padding-top: 1.5rem;
+        }
+        
+        .sidebar .nav-link {
+            color: var(--dark-gray);
+            padding: .75rem 1.5rem;
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+        }
+        
+        .sidebar .nav-link:hover {
+            color: var(--primary-green);
+            background-color: var(--accent-green);
+        }
+        
+        .sidebar .nav-link.active {
+            color: var(--primary-green);
+            border-left-color: var(--primary-green);
+            background-color: var(--accent-green);
+            font-weight: 500;
+        }
+        
+        .sidebar-heading {
+            font-size: .85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--dark-gray);
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Progress Bar Styling */
+        .progress {
+            height: 10px;
+            border-radius: 5px;
+            background-color: var(--medium-gray);
+        }
+        
+        .progress-bar {
+            background-color: var(--primary-green);
+        }
+        
+        /* Email Preview Styles */
+        .email-preview {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .email-header {
+            background-color: var(--light-gray);
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .email-subject {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--dark-gray);
+        }
+        
+        .email-recipient {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .email-body {
+            padding: 20px;
+            white-space: pre-wrap;
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+        }
+        
+        /* Data Display */
+        .data-display .data-header {
+            background-color: var(--accent-green);
+            padding: 12px 20px;
+            margin-top: 15px;
+            font-weight: 600;
+            border-left: 4px solid var(--primary-green);
+            border-radius: 4px 4px 0 0;
+            color: var(--secondary-green);
+        }
+        
+        .data-display .data-content {
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            border-top: none;
+            margin-bottom: 20px;
+            border-radius: 0 0 4px 4px;
+            background-color: #ffffff;
+        }
+        
+        .data-display .data-section {
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+        
+        .data-display .data-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .data-display .data-key {
+            font-weight: 500;
+            color: var(--dark-gray);
+            margin-bottom: 8px;
+        }
+        
+        .data-display .data-value {
+            color: #212529;
+        }
+        
+        /* Avatar placeholder */
+        .avatar-placeholder {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: var(--accent-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            color: var(--primary-green);
+            border: 2px solid var(--primary-green);
+        }
+        
+        /* Section titles */
+        .section-title {
+            font-weight: 600;
+            color: var(--secondary-green);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--accent-green);
+            display: inline-block;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--accent-green);
+            color: var(--dark-gray);
+            padding: 40px 0 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        footer h5 {
+            color: var(--secondary-green);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        footer a {
+            color: var(--dark-gray);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        footer a:hover {
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+        
+        footer hr {
+            background-color: var(--secondary-green);
+            opacity: 0.2;
+        }
+        
+        /* Custom badge colors */
+        .badge.bg-success {
+            background-color: var(--primary-green) !important;
+        }
+        
+        /* Tables */
+        .table {
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        
+        .table-bordered {
+            border: 1px solid var(--border-color);
+        }
+        
+        .table-bordered th,
+        .table-bordered td {
+            border: 1px solid var(--border-color);
+        }
+        
+        .table thead th {
+            background-color: var(--accent-green);
+            color: var(--secondary-green);
+            font-weight: 500;
+            border-bottom: 2px solid var(--primary-green);
+        }
+        
+        /* Form controls */
+        .form-control:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 0.25rem rgba(0, 166, 81, 0.25);
+        }
+        
+        /* Alert styling */
+        .alert-success {
+            background-color: var(--accent-green);
+            color: var(--secondary-green);
+            border-color: var(--primary-green);
+        }
+        
+        /* Modal styling */
+        .modal-header {
+            background-color: var(--accent-green);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .modal-header .modal-title {
+            color: var(--secondary-green);
+        }
+        
+        /* Tab styling */
+        .nav-tabs .nav-link {
+            color: var(--dark-gray);
+            border: 1px solid transparent;
+        }
+        
+        .nav-tabs .nav-link:hover {
+            color: var(--primary-green);
+            border-color: transparent;
+        }
+        
+        .nav-tabs .nav-link.active {
+            color: var(--primary-green);
+            background-color: var(--accent-green);
+            border-color: var(--primary-green);
+            border-bottom-color: transparent;
+            font-weight: 500;
+        }
+        
+        /* Circular progress */
+        .circular-progress {
+            position: relative;
+            width: var(--size, 80px);
+            height: var(--size, 80px);
+            border-radius: 50%;
+            background: conic-gradient(
+                var(--primary-green) calc(var(--percentage, 0) * 1%),
+                var(--light-gray) calc(var(--percentage, 0) * 1%)
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .circular-progress::before {
+            content: '';
+            position: absolute;
+            width: calc(var(--size, 80px) - 20px);
+            height: calc(var(--size, 80px) - 20px);
+            border-radius: 50%;
+            background-color: white;
+        }
+
+        .percentage {
+            position: relative;
+            font-weight: 600;
+            font-size: calc(var(--size, 80px) / 3.5);
+            color: var(--secondary-green);
+        }
+    </style>
+    {% block styles %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <i class="fas fa-handshake me-2"></i>Recruitment Assistant
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == url_for('index') %}active{% endif %}" href="{{ url_for('index') }}">
+                            <i class="fas fa-home me-1"></i> Accueil
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    {% if session.get('logged_in') %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == url_for('admin_dashboard') %}active{% endif %}" href="{{ url_for('admin_dashboard') }}">
+                            <i class="fas fa-tachometer-alt me-1"></i> Dashboard Admin
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('admin_logout') }}">
+                            <i class="fas fa-sign-out-alt me-1"></i> Déconnexion
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == url_for('admin_login') %}active{% endif %}" href="{{ url_for('admin_login') }}">
+                            <i class="fas fa-user-shield me-1"></i> Admin
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    <div class="container mt-4">
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+    
+    <!-- Main Content -->
+    {% block content %}{% endblock %}
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-handshake me-2"></i>Recruitment Assistant</h5>
+                    <p>Une solution intelligente pour faire correspondre les candidats aux offres d'emploi.</p>
+                </div>
+                <div class="col-md-3">
+                    <h5>Liens</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="{{ url_for('index') }}">Accueil</a></li>
+                        <li><a href="#">À propos de nous</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5>Contact</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-envelope me-2"></i>info@example.com</li>
+                        <li><i class="fas fa-phone me-2"></i>+1 234 567 8900</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-4 mb-3">
+            <div class="text-center">
+                <p class="mb-0">&copy; {{ now().year }} Recruitment Assistant. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom Scripts -->
+    {% block scripts %}{% endblock %}
+</body>
+</html>

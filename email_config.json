@@ -1,0 +1,7 @@
+{
+  "smtp_server": "smtp.gmail.com",
+  "smtp_port": 587,
+  "sender_email": "gastonishere1000@gmail.com",
+  "sender_password": "ijif bzrq gyom mqbl",
+  "google_credentials_file": "credentials.json"
+}

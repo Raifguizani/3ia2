@@ -1,0 +1,157 @@
+{
+    "success": true,
+    "cv_data": {
+        "personal_info": {
+            "name": "Salma Souai",
+            "email": "salma.souai@esprit.tn",
+            "phone": "29461062",
+            "address": "",
+            "linkedin": "",
+            "github": "",
+            "website": ""
+        },
+        "education": [
+            {
+                "degree": "",
+                "institution": "ESPRIT-\u00c9cole Sup\u00e9rieure Priv\u00e9e d'Ing\u00e9nierie et de Technologie",
+                "period": "Sept 2022",
+                "field": ""
+            }
+        ],
+        "experience": [
+            {
+                "title": "Stagiaire d'\u00e9t\u00e9",
+                "company": "UIB",
+                "period": "Juillet 2023 - Ao\u00fbt 2023",
+                "location": "",
+                "responsibilities": [
+                    "D\u00e9veloppement des solides comp\u00e9tences en communication et \u00e9coute",
+                    "Engagement avec les clients, compr\u00e9hension de leurs besoins",
+                    "Promotion de l'esprit d'\u00e9quipe et de collaboration"
+                ],
+                "contract_type": ""
+            }
+        ],
+        "skills": {
+            "technical_skills": [
+                "C",
+                "C++",
+                "Adobe Photoshop",
+                "Adobe Illustrator",
+                "After Effects",
+                "Arduino IDE"
+            ],
+            "languages": [
+                "Arabe: Langue maternelle",
+                "Fran\u00e7ais: B2",
+                "Anglais: B2",
+                "Espagnol: A2"
+            ],
+            "soft_skills": [
+                "D\u00e9veloppement des solides comp\u00e9tences en communication et \u00e9coute",
+                "Promotion de l'esprit d'\u00e9quipe et de collaboration"
+            ]
+        },
+        "certifications": [
+            {
+                "name": "Fondamentaux de l'apprentissage profond (NVIDIA)",
+                "issuer": "NVIDIA",
+                "date": "",
+                "field": ""
+            },
+            {
+                "name": "M\u00e9canique de l'apprentissage profond, Fondamentaux de l'intelligence artificielle (IBM) IA-\u00c9thique de l'IA-Domaines d'utilisation ML-DL-NLP-Vision par ordinateur",
+                "issuer": "IBM",
+                "date": "",
+                "field": ""
+            },
+            {
+                "name": "Ia g\u00e9n\u00e9rative avec mod\u00e8les de diffusion (NVIDIA)",
+                "issuer": "NVIDIA",
+                "date": "",
+                "field": ""
+            },
+            {
+                "name": "Pr\u00e9parer votre carri\u00e8re dans l'IA g\u00e9n\u00e9rative (Microsoft) Ia g\u00e9n\u00e9rative-\u00c9thique de l'IA",
+                "issuer": "Microsoft",
+                "date": "",
+                "field": ""
+            }
+        ],
+        "projects": [
+            {
+                "title": "IAG\u00e9n\u00e9rative avec mod\u00e8les de diffusion",
+                "description": "",
+                "technologies": [
+                    "Pipelinestexte-image",
+                    "U-Net",
+                    "architecture CLIP"
+                ],
+                "period": "",
+                "results": "",
+                "link": ""
+            },
+            {
+                "title": "D\u00e9veloppeur Hashgraph (Hashgraph Association) Hedera, Consensus Hashgraph",
+                "description": "",
+                "technologies": [],
+                "period": "",
+                "results": "",
+                "link": ""
+            }
+        ],
+        "summary": ""
+    },
+    "job_data": {
+        "job_title": "Data Scientist",
+        "company": "InsightAI Technologies",
+        "location": "Hybrid \u2013 Paris, France / Remote",
+        "technical_skills": [
+            "Python",
+            "data science libraries (pandas, scikit-learn, NumPy, etc.)",
+            "SQL",
+            "machine learning",
+            "statistical modeling",
+            "A/B testing"
+        ],
+        "experience_years": "2+ years",
+        "education": [
+            "Master\u2019s degree or PhD in Computer Science",
+            "Statistics",
+            "Applied Mathematics",
+            "related field"
+        ],
+        "soft_skills": [
+            "Excellent problem-solving skills and attention to detail",
+            "Strong communication and presentation abilities"
+        ],
+        "languages": []
+    },
+    "match_data": {
+        "technical_skills_match": 60,
+        "education_match": 80,
+        "experience_match": 20,
+        "languages_match": 0,
+        "soft_skills_match": 100,
+        "domain_match": 50,
+        "missing_skills": [
+            "SQL",
+            "A/B testing"
+        ],
+        "strengths": [
+            "Machine learning",
+            "Statistical modeling"
+        ],
+        "final_assessment": "The candidate has a good foundation in technical skills, but lacks experience and specific technical skills required for the Data Scientist role. They have strong education and soft skills, but require additional training or experience to match the job requirements."
+    },
+    "email": {
+        "subject": "Regarding your application for Data Scientist at InsightAI Technologies",
+        "body": "Dear Salma Souai,\n\nThank you for your interest in the Data Scientist position at InsightAI Technologies and for the time you invested in applying.\n\nAfter careful consideration of your profile, we regret to inform you that we have decided to move forward with other candidates whose qualifications more closely match our current needs.\n\nFor your future applications, you may want to develop skills in SQL and A/B testing.\n\nWe appreciate your interest in InsightAI Technologies and wish you success in your job search.\n\nBest regards,\nInsightAI Technologies Recruitment Team"
+    },
+    "processing_time": "54.95 seconds",
+    "job_id": "a553d9be-64c2-4346-940b-2adfd159787e",
+    "job_title": "kbhv",
+    "company": "Atia",
+    "application_date": "2025-04-25 00:13:15",
+    "cv_filename": "f9845a34-0f40-4532-8fa8-a7a23b812171_SALMA_SOUAI_CV_VF.pdf"
+}

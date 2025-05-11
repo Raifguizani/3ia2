@@ -1,0 +1,31 @@
+2025-04-24 12:51:51,779 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://172.17.3.28:5000
+2025-04-24 12:51:51,779 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-24 12:51:51,788 - werkzeug - INFO -  * Restarting with stat
+2025-04-24 12:51:52,124 - werkzeug - WARNING -  * Debugger is active!
+2025-04-24 12:51:52,131 - werkzeug - INFO -  * Debugger PIN: 740-438-559
+2025-04-24 12:51:55,878 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:51:55] "GET / HTTP/1.1" 200 -
+2025-04-24 12:51:56,764 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:51:56] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-04-24 12:52:26,314 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:52:26] "GET /admin/login HTTP/1.1" 200 -
+2025-04-24 12:52:28,152 - __main__ - INFO - Login successful for user: admin
+2025-04-24 12:52:28,156 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:52:28] "[32mPOST /admin/login HTTP/1.1[0m" 302 -
+2025-04-24 12:52:28,352 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:52:28] "[35m[1mGET /admin HTTP/1.1[0m" 500 -
+2025-04-24 12:52:28,983 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:52:28] "[36mGET /admin?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-04-24 12:52:29,002 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:52:29] "[36mGET /admin?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-04-24 12:52:29,216 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:52:29] "GET /admin?__debugger__=yes&cmd=resource&f=console.png&s=2bAXJL40mHHNEwBqh0qd HTTP/1.1" 200 -
+2025-04-24 12:52:29,340 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:52:29] "[36mGET /admin?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-04-24 12:53:10,859 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:53:10] "[32mGET /admin/login HTTP/1.1[0m" 302 -
+2025-04-24 12:53:10,907 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:53:10] "[35m[1mGET /admin HTTP/1.1[0m" 500 -
+2025-04-24 12:53:11,023 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:53:11] "[36mGET /admin?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-04-24 12:53:11,026 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:53:11] "[36mGET /admin?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-04-24 12:53:11,054 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:53:11] "[36mGET /admin?__debugger__=yes&cmd=resource&f=console.png&s=2bAXJL40mHHNEwBqh0qd HTTP/1.1[0m" 304 -
+2025-04-24 12:54:50,592 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:54:50] "GET /admin HTTP/1.1" 200 -
+2025-04-24 12:54:55,494 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:54:55] "[32mGET /admin/logout HTTP/1.1[0m" 302 -
+2025-04-24 12:54:55,516 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:54:55] "GET /admin/login HTTP/1.1" 200 -
+2025-04-24 12:54:58,096 - werkzeug - INFO - 127.0.0.1 - - [24/Apr/2025 12:54:58] "GET / HTTP/1.1" 200 -
+2025-04-24 13:04:15,749 - werkzeug - INFO -  * Detected change in 'C:\\Users\\mhgui\\Desktop\\appp\\app.py', reloading
+2025-04-24 13:04:15,832 - werkzeug - INFO -  * Restarting with stat
+2025-04-24 13:16:15,216 - werkzeug - INFO -  * Restarting with stat
+2025-04-24 13:17:06,329 - werkzeug - INFO -  * Restarting with stat

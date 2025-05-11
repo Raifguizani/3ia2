@@ -1,0 +1,184 @@
+{
+    "success": true,
+    "cv_data": {
+        "personal_info": {
+            "name": "Maryem Jlassi",
+            "email": "mariemjl271@gmail.com",
+            "phone": "216+ 90 480 382",
+            "address": "",
+            "linkedin": "",
+            "github": "",
+            "website": "maryem.com"
+        },
+        "education": [
+            {
+                "degree": "AI Engineering Studies",
+                "institution": "ESPRIT, Tunisia",
+                "period": {
+                    "start": "Sept 2024",
+                    "end": "Jan 2027"
+                },
+                "field": "",
+                "location": "Tunisia",
+                "grade": ""
+            },
+            {
+                "degree": "Pre-Engineering Studies - Physics and Technologies Focus",
+                "institution": "Institut Pr\u00b4eparatoire aux E\u00b4tudes d\u2019Ing\u00b4enieur El Manar, Tunisia",
+                "period": {
+                    "start": "Sept 2022",
+                    "end": "June 2024"
+                },
+                "field": "",
+                "location": "Tunisia",
+                "grade": ""
+            },
+            {
+                "degree": "Baccalaur\u00b4eat in Technical Section",
+                "institution": "Ariana - Tunisia",
+                "period": {
+                    "start": "Sept 2018",
+                    "end": "June 2022"
+                },
+                "field": "",
+                "location": "Tunisia",
+                "grade": ""
+            }
+        ],
+        "experience": [
+            {
+                "title": "Hackathon Participant",
+                "company": "Tunis, Tunisia",
+                "period": {
+                    "start": "2025",
+                    "end": ""
+                },
+                "location": "Tunis, Tunisia",
+                "responsibilities": [
+                    ""
+                ],
+                "contract_type": ""
+            }
+        ],
+        "skills": {
+            "technical_skills": [
+                "natural language processing",
+                "deep learning",
+                "generative AI"
+            ],
+            "languages": [
+                "Arabic",
+                "English"
+            ],
+            "soft_skills": [
+                "Conflict Management",
+                "Teamwork",
+                "Stress Management",
+                "Communication",
+                "Time Management",
+                "Project Management"
+            ]
+        },
+        "certifications": [
+            {
+                "name": "Fundamentals of Deep Learning",
+                "issuer": "Nvidia",
+                "date": "December 2024"
+            },
+            {
+                "name": "Generative AI with Diffusion Models",
+                "issuer": "Nvidia",
+                "date": "February 2025"
+            },
+            {
+                "name": "Natural Language Processing",
+                "issuer": "Nvidia",
+                "date": "February 2025"
+            },
+            {
+                "name": "The Machine Learning Process A-Z",
+                "issuer": "356 Data Science",
+                "date": "November 2024"
+            }
+        ],
+        "projects": [
+            {
+                "title": "",
+                "description": "",
+                "technologies": [
+                    ""
+                ],
+                "period": {
+                    "start": "",
+                    "end": ""
+                },
+                "results": [
+                    ""
+                ],
+                "link": ""
+            }
+        ],
+        "summary": ""
+    },
+    "job_data": {
+        "job_title": "Data Scientist",
+        "company": "InsightAI Technologies",
+        "location": "Hybrid \u2013 Paris, France / Remote",
+        "technical_skills": [
+            "Python",
+            "data science libraries (pandas, scikit-learn, NumPy, etc.)",
+            "SQL",
+            "machine learning",
+            "statistical modeling",
+            "A/B testing"
+        ],
+        "experience_years": "2+ years",
+        "education": [
+            "Master\u2019s degree or PhD in Computer Science",
+            "Master\u2019s degree or PhD in Statistics",
+            "Master\u2019s degree or PhD in Applied Mathematics"
+        ],
+        "soft_skills": [
+            "Excellent problem-solving skills and attention to detail",
+            "Strong communication and presentation abilities"
+        ],
+        "languages": []
+    },
+    "match_data": {
+        "technical_skills_match": 60,
+        "education_match": 0,
+        "experience_match": 20,
+        "languages_match": 50,
+        "soft_skills_match": 80,
+        "domain_match": 30,
+        "missing_skills": [
+            "data science libraries (pandas, scikit-learn, NumPy, etc.)",
+            "SQL",
+            "machine learning",
+            "statistical modeling",
+            "A/B testing"
+        ],
+        "strengths": [
+            "natural language processing",
+            "deep learning",
+            "generative AI",
+            "Conflict Management",
+            "Teamwork",
+            "Stress Management",
+            "Communication",
+            "Time Management",
+            "Project Management"
+        ],
+        "final_assessment": "Candidate has some relevant technical skills, but lacks experience and education in the field of Data Science. They have strong soft skills, but miss crucial technical skills for the job."
+    },
+    "email": {
+        "subject": "Regarding your application for Data Scientist at InsightAI Technologies",
+        "body": "Dear Maryem Jlassi,\n\nThank you for your interest in the Data Scientist position at InsightAI Technologies and for the time you invested in applying.\n\nAfter careful consideration of your profile, we regret to inform you that we have decided to move forward with other candidates whose qualifications more closely match our current needs.\n\nFor your future applications, you may want to develop skills in data science libraries (pandas, scikit-learn, NumPy, etc.), SQL, machine learning, statistical modeling and A/B testing.\n\nWe appreciate your interest in InsightAI Technologies and wish you success in your job search.\n\nBest regards,\nInsightAI Technologies Recruitment Team"
+    },
+    "processing_time": "79.79 seconds",
+    "job_id": "a553d9be-64c2-4346-940b-2adfd159787e",
+    "job_title": "kbhv",
+    "company": "Atia",
+    "application_date": "2025-04-25 00:28:02",
+    "cv_filename": "02f79b1e-b6ce-4997-9b58-c14cbf12e58d_mon_cv.pdf"
+}

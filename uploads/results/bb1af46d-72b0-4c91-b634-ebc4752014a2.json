@@ -1,0 +1,201 @@
+{
+    "success": true,
+    "cv_data": {
+        "personal_info": {
+            "name": "Maryem Jlassi",
+            "email": "mariemjl271@gmail.com",
+            "phone": "216+ 90 480 382",
+            "address": "",
+            "linkedin": "",
+            "github": "",
+            "website": ""
+        },
+        "education": [
+            {
+                "degree": "",
+                "institution": "ESPRIT, Tunisia",
+                "period": "Sept 2024 \u2013 Jan 2027",
+                "field": "AI Engineering Studies"
+            },
+            {
+                "degree": "Pre-Engineering Studies - Physics and Technologies Focus",
+                "institution": "Institut Pr\u00b4eparatoire aux E\u00b4tudes d\u2019Ing\u00b4enieur El Manar , Tunisia",
+                "period": "Sept 2022 \u2013 June 2024",
+                "field": ""
+            },
+            {
+                "degree": "Baccalaur\u00b4eat in Technical Section",
+                "institution": "Ariana - Tunisia",
+                "period": "Sept 2018 \u2013 June 2022",
+                "field": ""
+            }
+        ],
+        "experience": [
+            {
+                "title": "Hackathon Participant",
+                "company": "",
+                "period": "Tunis, Tunisia 2025",
+                "location": "",
+                "responsibilities": [
+                    "Developed AI-driven solutions for health data management, including features like MRI analytics, prescription management, and side effect information. Placed 4th in the competition."
+                ]
+            },
+            {
+                "title": "Hackathon Participant",
+                "company": "",
+                "period": "H12-Innovation by ESPRIT: Worked on reviving the historical site of Sbiba using AI.",
+                "location": "Tunis, Tunisia",
+                "responsibilities": [
+                    "Built a virtual assistant, AI quiz, and computer vision model for monument detection."
+                ]
+            },
+            {
+                "title": "Hackathon Participant",
+                "company": "",
+                "period": "VEO Tunisie Hackathon: Created AI solutions for smart sourcing in recruitment, focusing on efficiency and fairness in hiring processes.",
+                "location": "Tunis, Tunisia",
+                "responsibilities": [
+                    "Created AI solutions for smart sourcing in recruitment, focusing on efficiency and fairness in hiring processes."
+                ]
+            }
+        ],
+        "skills": {
+            "technical_skills": [
+                "Python",
+                "Java",
+                "Django",
+                "NodeJs",
+                "Flask",
+                "Angular",
+                "MachineLearning",
+                "DeepLearning",
+                "GenerativeAI",
+                "TensorFlow",
+                "PyTorch",
+                "Keras",
+                "NLP"
+            ],
+            "languages": [
+                "Arabic",
+                "English"
+            ],
+            "soft_skills": [
+                "Conflict Management",
+                "Teamwork",
+                "Stress Management",
+                "Communication",
+                "Time Management",
+                "Project Management"
+            ]
+        },
+        "certifications": [
+            {
+                "name": "Certificate of Completion: The Machine Learning Process A-Z by 356 Data Science",
+                "issuer": "",
+                "date": "November 2024",
+                "field": "Machine Learning"
+            },
+            {
+                "name": "Nvidia: Generative AI with Diffusion Models",
+                "issuer": "Nvidia",
+                "date": "February 2025",
+                "field": "Generative AI"
+            },
+            {
+                "name": "Nvidia: Fundamentals of Deep Learning",
+                "issuer": "Nvidia",
+                "date": "December 2024",
+                "field": "Deep Learning"
+            }
+        ],
+        "projects": [
+            {
+                "title": "",
+                "description": "Developed AI-driven solutions for health data management, including features like MRI analytics, prescription management, and side effect information.",
+                "technologies": [
+                    "Python",
+                    "Java"
+                ],
+                "period": "Tunis, Tunisia 2025",
+                "results": "Placed 4th in the competition.",
+                "link": ""
+            },
+            {
+                "title": "",
+                "description": "Worked on reviving the historical site of Sbiba using AI.",
+                "technologies": [
+                    "AI",
+                    "Computer Vision"
+                ],
+                "period": "H12-Innovation by ESPRIT: Worked on reviving the historical site of Sbiba using AI.",
+                "results": "Built a virtual assistant, AI quiz, and computer vision model for monument detection.",
+                "link": ""
+            },
+            {
+                "title": "",
+                "description": "Created AI solutions for smart sourcing in recruitment, focusing on efficiency and fairness in hiring processes.",
+                "technologies": [
+                    "AI",
+                    "Machine Learning"
+                ],
+                "period": "VEO Tunisie Hackathon: Created AI solutions for smart sourcing in recruitment, focusing on efficiency and fairness in hiring processes.",
+                "results": "Created AI solutions for smart sourcing in recruitment, focusing on efficiency and fairness in hiring processes.",
+                "link": ""
+            }
+        ],
+        "summary": ""
+    },
+    "job_data": {
+        "job_title": "Data Scientist",
+        "company": "InsightAI Technologies",
+        "location": "Hybrid \u2013 Paris, France / Remote",
+        "technical_skills": [
+            "Python",
+            "pandas",
+            "scikit-learn",
+            "NumPy",
+            "SQL"
+        ],
+        "experience_years": "2+ years",
+        "education": [
+            "Master\u2019s degree or PhD in Computer Science, Statistics, Applied Mathematics, or related field"
+        ],
+        "soft_skills": [
+            "Excellent problem-solving skills and attention to detail",
+            "Strong communication and presentation abilities"
+        ],
+        "languages": []
+    },
+    "match_data": {
+        "technical_skills_match": 60,
+        "education_match": 0,
+        "experience_match": 20,
+        "languages_match": 50,
+        "soft_skills_match": 80,
+        "domain_match": 30,
+        "missing_skills": [
+            "pandas",
+            "scikit-learn",
+            "NumPy",
+            "SQL"
+        ],
+        "strengths": [
+            "Python",
+            "MachineLearning",
+            "DeepLearning",
+            "GenerativeAI",
+            "NLP"
+        ],
+        "final_assessment": "The candidate has a strong foundation in Python and Machine Learning, but lacks experience and education relevant to the Data Scientist role. They also lack expertise in pandas, scikit-learn, NumPy, and SQL which are essential skills for this position. However, their soft skills such as problem-solving, communication, and attention to detail are impressive. Overall, the candidate has potential but requires further development and training."
+    },
+    "email": {
+        "subject": "Regarding your application for Data Scientist at InsightAI Technologies",
+        "body": "Dear Maryem Jlassi,\n\nThank you for your interest in the Data Scientist position at InsightAI Technologies and for the time you invested in applying.\n\nAfter careful consideration of your profile, we regret to inform you that we have decided to move forward with other candidates whose qualifications more closely match our current needs.\n\nFor your future applications, you may want to develop skills in pandas, scikit-learn, NumPy and SQL.\n\nWe appreciate your interest in InsightAI Technologies and wish you success in your job search.\n\nBest regards,\nInsightAI Technologies Recruitment Team"
+    },
+    "processing_time": "130.09 seconds",
+    "job_id": "32d95190-4518-4136-9771-856c2b53dec6",
+    "job_title": "ml egineer",
+    "company": "Insights technology",
+    "application_date": "2025-04-25 21:16:10",
+    "cv_filename": "bb1af46d-72b0-4c91-b634-ebc4752014a2_mon_cv.pdf"
+}

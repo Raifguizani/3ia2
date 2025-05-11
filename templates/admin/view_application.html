@@ -1,0 +1,990 @@
+{% extends "admin/base.html" %}
+
+{% block title %}Application Details | Recruitment Assistant{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Custom styles for a more professional look */
+    body {
+        background-color: #f8f9fa;
+    }
+    
+    .section-card {
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s;
+        margin-bottom: 1.5rem;
+        border: none;
+    }
+    
+    .section-card:hover {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    }
+    
+    .section-card .card-header {
+        background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+        border-bottom: 1px solid #eaecf0;
+        font-weight: 600;
+        border-radius: 8px 8px 0 0;
+    }
+    
+    .section-title {
+        font-weight: 700;
+        color: #344767;
+        margin-bottom: 1rem;
+    }
+    
+    .progress {
+        height: 10px;
+        border-radius: 50px;
+        background-color: #e9ecef;
+    }
+    
+    .progress-bar {
+        border-radius: 50px;
+    }
+    
+    .badge {
+        padding: 0.5em 0.8em;
+        font-weight: 500;
+    }
+    
+    .badge.bg-primary {
+        background-color: #3b82f6 !important;
+    }
+    
+    .badge.bg-secondary {
+        background-color: #64748b !important;
+    }
+    
+    .badge.bg-info {
+        background-color: #0ea5e9 !important;
+    }
+    
+    .badge.bg-success {
+        background-color: #10b981 !important;
+    }
+    
+    .badge.bg-warning {
+        background-color: #f59e0b !important;
+    }
+    
+    .badge.bg-danger {
+        background-color: #ef4444 !important;
+    }
+    
+    .breadcrumb {
+        background-color: transparent;
+        padding: 0.75rem 0;
+    }
+    
+    .btn {
+        border-radius: 5px;
+        padding: 0.5rem 1rem;
+        font-weight: 500;
+        transition: all 0.2s;
+    }
+    
+    .btn-primary {
+        background-color: #3b82f6;
+        border-color: #3b82f6;
+    }
+    
+    .btn-primary:hover {
+        background-color: #2563eb;
+        border-color: #2563eb;
+    }
+    
+    .btn-success {
+        background-color: #10b981;
+        border-color: #10b981;
+    }
+    
+    .btn-success:hover {
+        background-color: #059669;
+        border-color: #059669;
+    }
+    
+    .btn-danger {
+        background-color: #ef4444;
+        border-color: #ef4444;
+    }
+    
+    .btn-danger:hover {
+        background-color: #dc2626;
+        border-color: #dc2626;
+    }
+    
+    /* Right side navigation */
+    #sections-nav {
+        position: sticky;
+        top: 2rem;
+        padding: 1rem;
+        border-radius: 8px;
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+    
+    #sections-nav .nav-link {
+        color: #64748b;
+        padding: 0.5rem 0.75rem;
+        border-radius: 5px;
+        margin-bottom: 0.25rem;
+        transition: all 0.2s;
+    }
+    
+    #sections-nav .nav-link:hover {
+        background-color: #f1f5f9;
+        color: #3b82f6;
+    }
+    
+    #sections-nav .nav-link.active {
+        background-color: #3b82f6;
+        color: white;
+    }
+    
+    #sections-nav .nav-link .icon {
+        width: 20px;
+        text-align: center;
+        margin-right: 8px;
+    }
+    
+    /* Dashboard header */
+    .dashboard-header {
+        background-color: white;
+        padding: 1.5rem 0;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid #e5e7eb;
+    }
+    
+    /* Skills display */
+    .skill-badge {
+        display: inline-block;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+        padding: 0.35rem 0.65rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        background-color: #f1f5f9;
+        color: #334155;
+    }
+    
+    .skill-badge.technical {
+        background-color: #dbeafe;
+        color: #1e40af;
+    }
+    
+    .skill-badge.language {
+        background-color: #e0f2fe;
+        color: #0369a1;
+    }
+    
+    .skill-badge.soft {
+        background-color: #f3f4f6;
+        color: #4b5563;
+    }
+    
+    /* Experience cards */
+    .experience-card {
+        border-left: 4px solid #3b82f6;
+        padding-left: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    /* Candidate info card */
+    .candidate-profile {
+        text-align: center;
+        padding: 1.5rem;
+    }
+    
+    .candidate-avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin: 0 auto 1rem;
+        background-color: #e5e7eb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: #94a3b8;
+    }
+    
+    .match-summary-card {
+        text-align: center;
+        padding: 1.5rem;
+        background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+    }
+    
+    .match-percentage {
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: #3b82f6;
+        margin-bottom: 1rem;
+    }
+    
+    .match-label {
+        font-size: 1.1rem;
+        color: #64748b;
+    }
+    
+    .skill-match-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.75rem;
+    }
+    
+    .skill-match-label {
+        flex: 1;
+        font-weight: 500;
+    }
+    
+    .skill-match-bar {
+        flex: 2;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{% set cv_data = application.get('cv_data', {}) %}
+{% set job_data = application.get('job_data', {}) %}
+{% set match_data = application.get('match_data', {}) %}
+{% set candidate_name = cv_data.get('personal_info', {}).get('name', 'Unknown Candidate') %}
+{% set overall_match = (match_data.get('technical_skills_match', 0) + 
+                      match_data.get('domain_match', 0) + 
+                      match_data.get('education_match', 0) + 
+                      match_data.get('experience_match', 0) + 
+                      match_data.get('languages_match', 0) + 
+                      match_data.get('soft_skills_match', 0)) / 6 %}
+
+<!-- Header Section -->
+<div class="dashboard-header">
+    <div class="container-fluid">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('admin_dashboard') }}">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('admin_applications') }}">Applications</a></li>
+                <li class="breadcrumb-item active">{{ candidate_name }}</li>
+            </ol>
+        </nav>
+
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="section-title mb-0">Application Details</h1>
+            </div>
+            <div class="col-md-4 text-md-end">
+                <a href="{{ url_for('download_cv', filename=application.get('cv_filename', '')) }}" class="btn btn-primary">
+                    <i class="fas fa-download me-1"></i> Download CV
+                </a>
+                
+                {% if not application.get('email_sent') %}
+                <button id="send-email-btn" class="btn btn-success ms-2" data-app-id="{{ app_id }}">
+                    <i class="fas fa-envelope me-1"></i> Send Email
+                </button>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Main Content Area -->
+        <div class="col-md-9">
+            <!-- Match Overview Section -->
+            <section id="match-overview" class="mb-4">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="match-summary-card">
+                            <div class="match-percentage">{{ overall_match|round }}%</div>
+                            <div class="match-label">Overall Match</div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="section-card card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Match Analysis</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="skill-match-item">
+                                            <div class="skill-match-label">Technical Skills</div>
+                                            <div class="skill-match-bar">
+                                                {% set tech_match = match_data.get('technical_skills_match', 0) %}
+                                                <div class="progress">
+                                                    <div class="progress-bar {% if tech_match >= 70 %}bg-success{% elif tech_match >= 40 %}bg-warning{% else %}bg-danger{% endif %}" 
+                                                         role="progressbar" 
+                                                         style="width: {{ tech_match }}%;" 
+                                                         aria-valuenow="{{ tech_match }}" 
+                                                         aria-valuemin="0" 
+                                                         aria-valuemax="100">{{ tech_match }}%</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="skill-match-item">
+                                            <div class="skill-match-label">Domain Knowledge</div>
+                                            <div class="skill-match-bar">
+                                                {% set domain_match = match_data.get('domain_match', 0) %}
+                                                <div class="progress">
+                                                    <div class="progress-bar {% if domain_match >= 70 %}bg-success{% elif domain_match >= 40 %}bg-warning{% else %}bg-danger{% endif %}" 
+                                                         role="progressbar" 
+                                                         style="width: {{ domain_match }}%;" 
+                                                         aria-valuenow="{{ domain_match }}" 
+                                                         aria-valuemin="0" 
+                                                         aria-valuemax="100">{{ domain_match }}%</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="skill-match-item">
+                                            <div class="skill-match-label">Education</div>
+                                            <div class="skill-match-bar">
+                                                {% set edu_match = match_data.get('education_match', 0) %}
+                                                <div class="progress">
+                                                    <div class="progress-bar {% if edu_match >= 70 %}bg-success{% elif edu_match >= 40 %}bg-warning{% else %}bg-danger{% endif %}" 
+                                                         role="progressbar" 
+                                                         style="width: {{ edu_match }}%;" 
+                                                         aria-valuenow="{{ edu_match }}" 
+                                                         aria-valuemin="0"
+                                                         aria-valuemax="100">{{ edu_match }}%</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <div class="skill-match-item">
+                                            <div class="skill-match-label">Experience</div>
+                                            <div class="skill-match-bar">
+                                                {% set exp_match = match_data.get('experience_match', 0) %}
+                                                <div class="progress">
+                                                    <div class="progress-bar {% if exp_match >= 70 %}bg-success{% elif exp_match >= 40 %}bg-warning{% else %}bg-danger{% endif %}" 
+                                                         role="progressbar" 
+                                                         style="width: {{ exp_match }}%;" 
+                                                         aria-valuenow="{{ exp_match }}" 
+                                                         aria-valuemin="0"
+                                                         aria-valuemax="100">{{ exp_match }}%</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="skill-match-item">
+                                            <div class="skill-match-label">Languages</div>
+                                            <div class="skill-match-bar">
+                                                {% set lang_match = match_data.get('languages_match', 0) %}
+                                                <div class="progress">
+                                                    <div class="progress-bar {% if lang_match >= 70 %}bg-success{% elif lang_match >= 40 %}bg-warning{% else %}bg-danger{% endif %}" 
+                                                         role="progressbar" 
+                                                         style="width: {{ lang_match }}%;" 
+                                                         aria-valuenow="{{ lang_match }}" 
+                                                         aria-valuemin="0"
+                                                         aria-valuemax="100">{{ lang_match }}%</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="skill-match-item">
+                                            <div class="skill-match-label">Soft Skills</div>
+                                            <div class="skill-match-bar">
+                                                {% set soft_match = match_data.get('soft_skills_match', 0) %}
+                                                <div class="progress">
+                                                    <div class="progress-bar {% if soft_match >= 70 %}bg-success{% elif soft_match >= 40 %}bg-warning{% else %}bg-danger{% endif %}" 
+                                                         role="progressbar" 
+                                                         style="width: {{ soft_match }}%;" 
+                                                         aria-valuenow="{{ soft_match }}" 
+                                                         aria-valuemin="0"
+                                                         aria-valuemax="100">{{ soft_match }}%</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Skills Analysis Section -->
+            <section id="skills-analysis" class="mb-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="section-card card">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0">Key Strengths</h5>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    {% for strength in match_data.get('strengths', []) %}
+                                    <li class="list-group-item d-flex align-items-center border-0 ps-0">
+                                        <div class="me-3">
+                                            <i class="fas fa-check-circle fa-lg text-success"></i>
+                                        </div>
+                                        <div>
+                                            <p class="mb-0">{{ strength }}</p>
+                                        </div>
+                                    </li>
+                                    {% else %}
+                                    <li class="list-group-item border-0 ps-0 text-muted">
+                                        No specific strengths identified
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="section-card card">
+                            <div class="card-header bg-light">
+                                <h5 class="mb-0">Skill Gaps</h5>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    {% for missing in match_data.get('missing_skills', []) %}
+                                    <li class="list-group-item d-flex align-items-center border-0 ps-0">
+                                        <div class="me-3">
+                                            <i class="fas fa-exclamation-triangle fa-lg text-warning"></i>
+                                        </div>
+                                        <div>
+                                            <p class="mb-0">{{ missing }}</p>
+                                        </div>
+                                    </li>
+                                    {% else %}
+                                    <li class="list-group-item border-0 ps-0 text-muted">
+                                        No significant skill gaps identified
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Final Assessment Section -->
+            <section id="assessment" class="mb-4">
+                <div class="section-card card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Final Assessment</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="p-3 bg-light rounded">
+                            <p class="mb-0">{{ match_data.get('final_assessment', 'No final assessment available') }}</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Email Section -->
+            <section id="email" class="mb-4">
+                <div class="section-card card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Generated Email</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Subject:</label>
+                            <input type="text" class="form-control" value="{{ application.get('email', {}).get('subject', '') }}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Body:</label>
+                            <textarea class="form-control" rows="8" readonly>{{ application.get('email', {}).get('body', '') }}</textarea>
+                        </div>
+                        
+                        {% if application.get('email_sent') %}
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle me-2"></i> Email sent on {{ application.get('email_sent_date', '') }}
+                        </div>
+                        {% else %}
+                        <div class="d-grid">
+                            <button id="send-email-btn-bottom" class="btn btn-success" data-app-id="{{ app_id }}">
+                                <i class="fas fa-envelope me-1"></i> Send Email to {{ cv_data.get('personal_info', {}).get('email', 'Candidate') }}
+                            </button>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Skills Section -->
+            <section id="skills" class="mb-4">
+                <div class="section-card card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Candidate Skills</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6 class="fw-bold mb-3">Technical Skills</h6>
+                                <div class="mb-4">
+                                    {% for skill in cv_data.get('skills', {}).get('technical_skills', []) %}
+                                    <span class="skill-badge technical">{{ skill }}</span>
+                                    {% else %}
+                                    <span class="text-muted">No technical skills listed</span>
+                                    {% endfor %}
+                                </div>
+                                
+                                <h6 class="fw-bold mb-3">Languages</h6>
+                                <div>
+                                    {% for lang in cv_data.get('skills', {}).get('languages', []) %}
+                                    <span class="skill-badge language">{{ lang }}</span>
+                                    {% else %}
+                                    <span class="text-muted">No languages listed</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <h6 class="fw-bold mb-3">Soft Skills</h6>
+                                <div>
+                                    {% for skill in cv_data.get('skills', {}).get('soft_skills', []) %}
+                                    <span class="skill-badge soft">{{ skill }}</span>
+                                    {% else %}
+                                    <span class="text-muted">No soft skills listed</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Education and Certifications Section -->
+            <section id="education" class="mb-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="section-card card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Education</h5>
+                            </div>
+                            <div class="card-body">
+                                {% for edu in cv_data.get('education', []) %}
+                                <div class="mb-3 {% if not loop.last %}border-bottom pb-3{% endif %}">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6 class="fw-bold mb-1">{{ edu.get('degree', 'Degree') }} - {{ edu.get('field', '') }}</h6>
+                                        <span class="badge bg-primary rounded-pill">{{ edu.get('period', '') }}</span>
+                                    </div>
+                                    <p class="mb-1">{{ edu.get('institution', 'Institution') }}</p>
+                                    {% if edu.get('grade', '') %}
+                                    <p class="mb-1"><small>Grade: {{ edu.get('grade', '') }}</small></p>
+                                    {% endif %}
+                                </div>
+                                {% else %}
+                                <p class="text-muted">No education information available</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="section-card card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Certifications</h5>
+                            </div>
+                            <div class="card-body">
+                                {% for cert in cv_data.get('certifications', []) %}
+                                <div class="mb-3 {% if not loop.last %}border-bottom pb-3{% endif %}">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h6 class="fw-bold mb-1">{{ cert.get('name', 'Certification') }}</h6>
+                                        <span class="badge bg-info rounded-pill">{{ cert.get('date', '') }}</span>
+                                    </div>
+                                    <p class="mb-1">{{ cert.get('issuer', 'Issuer') }}</p>
+                                    {% if cert.get('id', '') %}
+                                    <p class="mb-1"><small>ID: {{ cert.get('id', '') }}</small></p>
+                                    {% endif %}
+                                </div>
+                                {% else %}
+                                <p class="text-muted">No certification information available</p>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Work Experience Section -->
+            <section id="experience" class="mb-4">
+                <div class="section-card card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Work Experience</h5>
+                    </div>
+                    <div class="card-body">
+                        {% for exp in cv_data.get('experience', []) %}
+                        <div class="experience-card mb-4 {% if not loop.last %}pb-3{% endif %}">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <h5 class="fw-bold mb-1">{{ exp.get('title', 'Position') }}</h5>
+                                <span class="badge bg-secondary">{{ exp.get('contract_type', '') }}</span>
+                            </div>
+                            <h6 class="text-primary mb-1">{{ exp.get('company', 'Company') }}</h6>
+                            <p class="text-muted mb-3">
+                                <i class="far fa-calendar-alt me-1"></i> {{ exp.get('period', '') }}
+                                {% if exp.get('location', '') %}
+                                 • <i class="fas fa-map-marker-alt me-1"></i> {{ exp.get('location', '') }}
+                                {% endif %}
+                            </p>
+                            
+                            {% if exp.get('responsibilities', []) %}
+                            <h6 class="fw-bold mb-2">Key Responsibilities:</h6>
+                            <ul class="ps-3">
+                                {% for resp in exp.get('responsibilities', []) %}
+                                <li>{{ resp }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                        {% else %}
+                        <p class="text-muted">No work experience information available</p>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Projects Section -->
+            <section id="projects" class="mb-4">
+                <div class="section-card card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Projects</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            {% for project in cv_data.get('projects', []) %}
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100 shadow-sm">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <h5 class="fw-bold mb-0">{{ project.get('title', 'Project') }}</h5>
+                                            <span class="badge bg-secondary">{{ project.get('period', '') }}</span>
+                                        </div>
+                                        <p>{{ project.get('description', '') }}</p>
+                                        
+                                        {% if project.get('technologies', []) %}
+                                        <div class="mb-3">
+                                            <strong class="d-block mb-2">Technologies:</strong>
+                                            {% for tech in project.get('technologies', []) %}
+                                            <span class="skill-badge technical">{{ tech }}</span>
+                                            {% endfor %}
+                                        </div>
+                                        {% endif %}
+                                        
+                                        {% if project.get('results', '') %}
+                                        <p><strong>Results:</strong> {{ project.get('results', '') }}</p>
+                                        {% endif %}
+                                    </div>
+                                    {% if project.get('link', '') %}
+                                    <div class="card-footer bg-transparent border-0">
+                                        <a href="{{ project.get('link', '') }}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                            <i class="fas fa-external-link-alt me-1"></i> View Project
+                                        </a>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="col-12">
+                                <p class="text-muted">No project information available</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Job Information Section -->
+            <section id="job-info" class="mb-4">
+                <div class="section-card card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Job Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="fw-bold">{{ job_data.get('job_title', application.get('job_title', 'Unknown Position')) }}</h5>
+                        <p class="text-muted mb-4">{{ job_data.get('company', application.get('company', 'Unknown Company')) }}</p>
+                        
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h6 class="fw-bold mb-3">Required Technical Skills:</h6>
+                                <ul class="list-group mb-4">
+                                    {% for skill in job_data.get('technical_skills', []) %}
+                                    <li class="list-group-item border-0 ps-0">
+                                        <i class="fas fa-check text-success me-2"></i> {{ skill }}
+                                    </li>
+                                    {% else %}
+                                    <li class="list-group-item border-0 ps-0 text-muted">No skills listed</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <h6 class="fw-bold mb-3">Required Experience:</h6>
+                                <div class="mb-4">
+                                    <div class="p-3 bg-light rounded">
+                                        <p class="mb-0">{{ job_data.get('experience_years', 'Not specified') }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <h6 class="fw-bold mb-3">Required Education:</h6>
+                                <ul class="list-group mb-4">
+                                    {% for edu in job_data.get('education', []) %}
+                                    <li class="list-group-item border-0 ps-0">
+                                        <i class="fas fa-graduation-cap text-primary me-2"></i> {{ edu }}
+                                    </li>
+                                    {% else %}
+                                    <li class="list-group-item border-0 ps-0 text-muted">Not specified</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Footer Actions -->
+            <div class="d-flex justify-content-between mt-5 mb-5">
+                <a href="{{ url_for('admin_applications') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left me-1"></i> Back to Applications
+                </a>
+                <div>
+                    <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAppModal-{{ app_id }}">
+                        <i class="fas fa-trash me-1"></i> Delete Application
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Sidebar - Fixed Navigation -->
+        <div class="col-md-3">
+            <div id="sections-nav" class="mb-4">
+                <h5 class="fw-bold mb-3">Candidate Profile</h5>
+                <div class="candidate-profile mb-4">
+                    <div class="candidate-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h5 class="fw-bold">{{ candidate_name }}</h5>
+                    
+                    {% set email = cv_data.get('personal_info', {}).get('email', '') %}
+                    {% if email %}
+                    <p class="mb-2"><a href="mailto:{{ email }}" class="text-decoration-none">{{ email }}</a></p>
+                    {% endif %}
+                    
+                    {% set phone = cv_data.get('personal_info', {}).get('phone', '') %}
+                    {% if phone %}
+                    <p class="mb-2">{{ phone }}</p>
+                    {% endif %}
+                    
+                    <div class="mt-3">
+                        {% set linkedin = cv_data.get('personal_info', {}).get('linkedin', '') %}
+                        {% if linkedin %}
+                        <a href="{{ linkedin }}" target="_blank" class="btn btn-sm btn-outline-secondary me-1">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        {% endif %}
+                        
+                        {% set github = cv_data.get('personal_info', {}).get('github', '') %}
+                        {% if github %}
+                        <a href="{{ github }}" target="_blank" class="btn btn-sm btn-outline-secondary">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <h5 class="fw-bold mb-3">Navigation</h5>
+                <div class="nav flex-column nav-pills">
+                    <a class="nav-link" href="#match-overview">
+                        <i class="fas fa-chart-pie icon"></i> Match Overview
+                    </a>
+                    <a class="nav-link" href="#skills-analysis">
+                        <i class="fas fa-list-check icon"></i> Skills Analysis
+                    </a>
+                    <a class="nav-link" href="#assessment">
+                        <i class="fas fa-clipboard-check icon"></i> Final Assessment
+                    </a>
+                    <a class="nav-link" href="#email">
+                        <i class="fas fa-envelope icon"></i> Email Template
+                    </a>
+                    <a class="nav-link" href="#skills">
+                        <i class="fas fa-code icon"></i> Candidate Skills
+                    </a>
+                    <a class="nav-link" href="#education">
+                        <i class="fas fa-graduation-cap icon"></i> Education
+                    </a>
+                    <a class="nav-link" href="#experience">
+                        <i class="fas fa-briefcase icon"></i> Work Experience
+                    </a>
+                    <a class="nav-link" href="#projects">
+                        <i class="fas fa-folder-open icon"></i> Projects
+                    </a>
+                    <a class="nav-link" href="#job-info">
+                        <i class="fas fa-file-alt icon"></i> Job Details
+                    </a>
+                </div>
+                
+                <div class="mt-4">
+                    <a href="{{ url_for('download_cv', filename=application.get('cv_filename', '')) }}" class="btn btn-primary btn-sm d-block mb-2">
+                        <i class="fas fa-download me-1"></i> Download CV
+                    </a>
+                    
+                    {% if not application.get('email_sent') %}
+                    <button id="send-email-btn-side" class="btn btn-success btn-sm d-block" data-app-id="{{ app_id }}">
+                        <i class="fas fa-envelope me-1"></i> Send Email
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteAppModal-{{ app_id }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center mb-4">
+                    <i class="fas fa-exclamation-triangle text-warning fa-3x"></i>
+                </div>
+                <p class="text-center">Are you sure you want to delete this application from <strong>{{ candidate_name }}</strong>?</p>
+                <p class="text-center text-danger"><small>This action cannot be undone.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <a href="{{ url_for('admin_delete_application', app_id=app_id) }}" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Activate scrollspy for side navigation
+        const scrollspy = new bootstrap.ScrollSpy(document.body, {
+            target: '#sections-nav',
+            offset: 100
+        });
+        
+        // Function to send email
+        function sendEmail(appId) {
+            // Show loading state
+            const sendButtons = document.querySelectorAll('[data-app-id="' + appId + '"]');
+            sendButtons.forEach(btn => {
+                btn.disabled = true;
+                btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...';
+            });
+            
+            // Make AJAX request
+            fetch('/admin/applications/send-email/' + appId)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Show success toast notification
+                        const toastEl = document.createElement('div');
+                        toastEl.className = 'position-fixed bottom-0 end-0 p-3';
+                        toastEl.style.zIndex = '11';
+                        toastEl.innerHTML = `
+                            <div class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="d-flex">
+                                    <div class="toast-body">
+                                        <i class="fas fa-check-circle me-2"></i> Email sent successfully!
+                                    </div>
+                                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
+                            </div>
+                        `;
+                        document.body.appendChild(toastEl);
+                        
+                        const toast = new bootstrap.Toast(toastEl.querySelector('.toast'));
+                        toast.show();
+                        
+                        // Reload page after toast disappears
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 2000);
+                    } else {
+                        // Show error message
+                        alert('Error: ' + data.message);
+                        // Reset buttons
+                        sendButtons.forEach(btn => {
+                            btn.disabled = false;
+                            btn.innerHTML = '<i class="fas fa-envelope me-1"></i> Send Email';
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while sending the email.');
+                    // Reset buttons
+                    sendButtons.forEach(btn => {
+                        btn.disabled = false;
+                        btn.innerHTML = '<i class="fas fa-envelope me-1"></i> Send Email';
+                    });
+                });
+        }
+        
+        // Add click event listeners to all send email buttons
+        document.querySelectorAll('#send-email-btn, #send-email-btn-bottom, #send-email-btn-side').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const appId = this.getAttribute('data-app-id');
+                sendEmail(appId);
+            });
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('#sections-nav a.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 20,
+                    behavior: 'smooth'
+                });
+                
+                // Add active class
+                document.querySelectorAll('#sections-nav a.nav-link').forEach(el => {
+                    el.classList.remove('active');
+                });
+                this.classList.add('active');
+            });
+        });
+        
+        // Add active class to nav link based on scroll position
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = '#' + section.getAttribute('id');
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    document.querySelectorAll('#sections-nav a.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === sectionId) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+        
+        // Activate the first nav item on page load
+        const firstNavItem = document.querySelector('#sections-nav a.nav-link');
+        if (firstNavItem) {
+            firstNavItem.classList.add('active');
+        }
+    });
+</script>
+{% endblock %}

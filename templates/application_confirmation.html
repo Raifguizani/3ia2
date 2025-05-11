@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Application Submitted{% endblock %}
+
+{% block content %}
+<div class="text-center my-5">
+    <div class="mb-4">
+        <i class="fas fa-check-circle text-success fa-5x"></i>
+    </div>
+    <h1 class="display-4">Application Submitted!</h1>
+    <p class="lead">Thank you for applying to the position of <strong>{{ job.job_title }}</strong> at <strong>{{ job.company }}</strong>.</p>
+    <p>Your CV has been successfully uploaded and is being processed by our AI system.</p>
+    <p>We will contact you soon with the results of your application.</p>
+    <a href="{{ url_for('index') }}" class="btn btn-primary mt-3">
+        <i class="fas fa-home me-1"></i> Back to Home
+    </a>
+</div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}Candidature soumise avec succès{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow border-success">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0"><i class="fas fa-check-circle me-2"></i>Candidature soumise avec succès</h4>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-5 mt-4">
+                        <div class="display-1 text-success mb-4">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        
+                        <h2 class="mb-4">Merci pour votre candidature !</h2>
+                        
+                        <p class="lead">
+                            Votre candidature pour le poste de <strong>{{ job_title }}</strong>{% if company %} chez <strong>{{ company }}</strong>{% endif %} a été soumise avec succès.
+                        </p>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <h5 class="alert-heading"><i class="fas fa-info-circle me-2"></i>Prochaines étapes :</h5>
+                        <p>Notre équipe de recrutement va examiner attentivement votre CV.</p>
+                        <p>Vous serez notifié(e) par email à l'adresse <strong>{{ email }}</strong> concernant le statut de votre candidature.</p>
+                        <p class="mb-0">Veuillez vérifier régulièrement votre boîte de réception (et vos spams) pour ne pas manquer notre réponse.</p>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="d-grid gap-2">
+                        <a href="{{ url_for('index') }}" class="btn btn-primary">
+                            <i class="fas fa-home me-2"></i>Retour à l'accueil
+                        </a>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <p class="text-muted mb-0"><i class="fas fa-clock me-2"></i>Soumis le {{ submission_date }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

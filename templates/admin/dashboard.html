@@ -1,0 +1,258 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-2 bg-dark text-light sidebar p-0">
+            <div class="p-3 border-bottom border-secondary">
+                <h5 class="sidebar-heading">Admin Dashboard</h5>
+            </div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ url_for('admin_dashboard') }}">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_jobs') }}">
+                        <i class="fas fa-briefcase me-2"></i>Job Descriptions
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_candidates') }}">
+                        <i class="fas fa-users me-2"></i>Candidates
+                    </a>
+                </li>
+                <li class="nav-item mt-4">
+                    <a class="nav-link" href="{{ url_for('admin_logout') }}">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-10 ms-sm-auto px-md-4 py-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group me-2">
+                        <a href="{{ url_for('admin_new_job') }}" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-plus me-2"></i>Add New Job
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stats Cards -->
+            <div class="row">
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-primary text-white mb-4">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="card-title mb-0">{{ jobs|length }}</h5>
+                                    <div class="small">Total Jobs</div>
+                                </div>
+                                <i class="fas fa-briefcase fa-2x"></i>
+                            </div>
+                        </div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white stretched-link" href="{{ url_for('admin_jobs') }}">View Details</a>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-success text-white mb-4">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="card-title mb-0">{{ candidates|length }}</h5>
+                                    <div class="small">Candidates</div>
+                                </div>
+                                <i class="fas fa-users fa-2x"></i>
+                            </div>
+                        </div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white stretched-link" href="{{ url_for('admin_candidates') }}">View Details</a>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-info text-white mb-4">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="card-title mb-0">{{ jobs|selectattr('status', 'equalto', 'published')|list|length }}</h5>
+                                    <div class="small">Published Jobs</div>
+                                </div>
+                                <i class="fas fa-globe fa-2x"></i>
+                            </div>
+                        </div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white stretched-link" href="{{ url_for('admin_jobs') }}">View Details</a>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-xl-3 col-md-6">
+                    <div class="card bg-warning text-white mb-4">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="card-title mb-0">{{ jobs|selectattr('status', 'equalto', 'draft')|list|length }}</h5>
+                                    <div class="small">Draft Jobs</div>
+                                </div>
+                                <i class="fas fa-pencil-alt fa-2x"></i>
+                            </div>
+                        </div>
+                        <div class="card-footer d-flex align-items-center justify-content-between">
+                            <a class="small text-white stretched-link" href="{{ url_for('admin_jobs') }}">View Details</a>
+                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Applications -->
+            <div class="row mt-4">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-clipboard-list me-2"></i>Recent Applications</h5>
+                        </div>
+                        <div class="card-body">
+                            {% if candidates %}
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Position</th>
+                                            <th>Match</th>
+                                            <th>Date</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for candidate in candidates[:5] %}
+                                        <tr>
+                                            <td>
+                                                {{ candidate.name }}
+                                                {% if candidate.is_partial %}
+                                                <span class="badge bg-warning ms-1" title="Partial data">!</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ candidate.job_title }}</td>
+                                            <td>
+                                                {% set avg_match = (candidate.technical_match + candidate.domain_match) / 2 %}
+                                                <div class="progress">
+                                                    <div class="progress-bar 
+                                                        {% if avg_match >= 75 %}bg-success
+                                                        {% elif avg_match >= 50 %}bg-warning
+                                                        {% else %}bg-danger{% endif %}"
+                                                        role="progressbar" style="width: {{ avg_match }}%">{{ avg_match|round }}%</div>
+                                                </div>
+                                            </td>
+                                            <td>{{ candidate.date_processed }}</td>
+                                            <td>
+                                                <a href="{{ url_for('admin_view_candidate', candidate_id=candidate.id) }}" class="btn btn-sm btn-outline-primary">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {% if candidates|length > 5 %}
+                            <div class="text-center mt-3">
+                                <a href="{{ url_for('admin_candidates') }}" class="btn btn-outline-primary">View All Candidates</a>
+                            </div>
+                            {% endif %}
+                            {% else %}
+                            <p class="text-muted text-center">No applications yet.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Jobs -->
+            <div class="row mt-4">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-briefcase me-2"></i>Recent Jobs</h5>
+                        </div>
+                        <div class="card-body">
+                            {% if jobs %}
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Job Title</th>
+                                            <th>Company</th>
+                                            <th>Status</th>
+                                            <th>Applications</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for job in jobs[:5] %}
+                                        <tr>
+                                            <td>{{ job.job_title }}</td>
+                                            <td>{{ job.company }}</td>
+                                            <td>
+                                                <span class="badge {% if job.status == 'published' %}bg-success{% else %}bg-secondary{% endif %}">
+                                                    {{ job.status }}
+                                                </span>
+                                            </td>
+                                            <td>
+                                                {% set job_applications = candidates|selectattr('job_id', 'equalto', job.id)|list|length %}
+                                                {{ job_applications }}
+                                            </td>
+                                            <td>
+                                                <a href="{{ url_for('admin_edit_job', job_id=job.id) }}" class="btn btn-sm btn-outline-primary">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                {% if job.status == 'published' %}
+                                                <a href="{{ url_for('view_job', job_id=job.id) }}" class="btn btn-sm btn-outline-info" target="_blank">
+                                                    <i class="fas fa-external-link-alt"></i>
+                                                </a>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {% if jobs|length > 5 %}
+                            <div class="text-center mt-3">
+                                <a href="{{ url_for('admin_jobs') }}" class="btn btn-outline-primary">View All Jobs</a>
+                            </div>
+                            {% endif %}
+                            {% else %}
+                            <p class="text-muted text-center">No jobs created yet.</p>
+                            <div class="text-center">
+                                <a href="{{ url_for('admin_new_job') }}" class="btn btn-primary">
+                                    <i class="fas fa-plus me-2"></i>Create Job
+                                </a>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,150 @@
+{
+    "success": true,
+    "cv_data": {
+        "personal_info": {
+            "name": "Ghassen",
+            "email": "mohamedghassen.bousselem@esprit.tn",
+            "phone": "+216 21750868",
+            "address": "Tunis, Manouba",
+            "linkedin": "linkedin.com/in/ghassen-boussalem/",
+            "github": "",
+            "website": ""
+        },
+        "education": [
+            {
+                "degree": "",
+                "institution": "\u00c9cole sup\u00e9rieure priv\u00e9e d'ing\u00e9nierie et de technologie",
+                "period": "2022-2027",
+                "field": "Intelligence Artificielle",
+                "location": ""
+            },
+            {
+                "degree": "Baccalaur\u00e9at en Sciences Math\u00e9matiques",
+                "institution": "Lyc\u00e9e Dachraoui, El Menzah 9",
+                "period": "2018-2022",
+                "field": "",
+                "location": ""
+            }
+        ],
+        "experience": [
+            {
+                "title": "Stage - Web Developer",
+                "company": "ACTIA Engineering, Tunis",
+                "period": "07/2024 - 08/2024",
+                "location": "",
+                "responsibilities": [
+                    "D\u00e9veloppement d'une application web avec Django/Python pour comparer des fichiers ARXML",
+                    "Extraction et traitement de donn\u00e9es pour des comparaisons pr\u00e9cises",
+                    "Optimisation de l\u2019interface utilisateur et des performances"
+                ],
+                "contract_type": ""
+            },
+            {
+                "title": "Stage - D\u00e9partement Informatique",
+                "company": "Banque de Tunisie, Tunis",
+                "period": "07/2023 - 08/2023",
+                "location": "",
+                "responsibilities": [
+                    "D\u00e9couverte de l\u2019environnement IT bancaire",
+                    "Gestion de r\u00e9seaux et assistance technique",
+                    "Optimisation des processus administratifs"
+                ],
+                "contract_type": ""
+            }
+        ],
+        "skills": {
+            "technical_skills": [
+                "Intelligence Artificielle & Machine Learning",
+                "D\u00e9veloppement Web & Soft Skills",
+                "Programmation",
+                "R\u00e9solution de probl\u00e8mes Deep Learning avec TensorFlow & PyTorch",
+                "Django, Flask (Python)",
+                "Computer Vision (YOLO, OpenCV)",
+                "HTML/CSS, PHP"
+            ],
+            "languages": [
+                "Arabe: Natif",
+                "Fran\u00e7ais: B2 (TCF \u2013 Institut Fran\u00e7ais de Tunis)",
+                "Anglais: B2 (ESPRIT Language Center)"
+            ],
+            "soft_skills": [
+                "Travail en \u00e9quipe",
+                "Traitement du langage naturel",
+                "Syst\u00e8me d'information"
+            ]
+        },
+        "certifications": [
+            {
+                "name": "",
+                "issuer": "",
+                "date": "",
+                "field": "",
+                "id": ""
+            }
+        ],
+        "projects": [
+            {
+                "title": "",
+                "description": "",
+                "technologies": [],
+                "period": "",
+                "results": "",
+                "link": ""
+            }
+        ],
+        "summary": "As a driven and detail-oriented individual, I am excited to leverage my skills in Intelligence Artificielle & Machine Learning, D\u00e9veloppement Web & Soft Skills, and Programmation to deliver high-quality solutions. With experience in Stage - Web Developer and Stage - D\u00e9partement Informatique, I am confident in my ability to adapt to new challenges and collaborate effectively."
+    },
+    "job_data": {
+        "job_title": "Data Scientist",
+        "company": "InsightAI Technologies",
+        "location": "Hybrid \u2013 Paris, France / Remote",
+        "technical_skills": [
+            "Python",
+            "pandas",
+            "scikit-learn",
+            "NumPy",
+            "SQL"
+        ],
+        "experience_years": "2+ years",
+        "education": [
+            "Master\u2019s degree or PhD in Computer Science",
+            "Statistics",
+            "Applied Mathematics",
+            "related field"
+        ],
+        "soft_skills": [
+            "Excellent problem-solving skills and attention to detail",
+            "Strong communication and presentation abilities"
+        ],
+        "languages": []
+    },
+    "match_data": {
+        "technical_skills_match": 40,
+        "education_match": 10,
+        "experience_match": 30,
+        "languages_match": 0,
+        "soft_skills_match": 50,
+        "domain_match": 20,
+        "missing_skills": [
+            "pandas",
+            "scikit-learn",
+            "NumPy"
+        ],
+        "strengths": [
+            "Intelligence Artificielle & Machine Learning",
+            "D\u00e9veloppement Web & Soft Skills",
+            "Programmation"
+        ],
+        "final_assessment": "While the candidate has some relevant technical skills and experience, they are not a strong fit for this Data Scientist role. They lack key technical skills such as pandas, scikit-learn, and NumPy, which are essential for data analysis. Additionally, their education background is not directly related to computer science or statistics, which could impact their ability to effectively apply theoretical concepts to real-world problems."
+    },
+    "email": {
+        "subject": "Regarding your application for Data Scientist at InsightAI Technologies",
+        "body": "Dear Ghassen,\n\nThank you for your interest in the Data Scientist position at InsightAI Technologies and for the time you invested in applying.\n\nAfter careful consideration of your profile, we regret to inform you that we have decided to move forward with other candidates whose qualifications more closely match our current needs.\n\nFor your future applications, you may want to develop skills in pandas, scikit-learn and NumPy.\n\nWe appreciate your interest in InsightAI Technologies and wish you success in your job search.\n\nBest regards,\nInsightAI Technologies Recruitment Team"
+    },
+    "processing_time": "53.15 seconds",
+    "job_id": "a553d9be-64c2-4346-940b-2adfd159787e",
+    "job_title": "kbhv",
+    "company": "Atia",
+    "application_date": "2025-04-25 00:24:36",
+    "cv_filename": "2e81f332-6cd0-40e7-bcc0-2c7054f28c5d_Science_and_Engineering_Resume_in_White_Black_Simple_Style_1.pdf"
+}

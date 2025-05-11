@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+
+{% block title %}Processing Your Application{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0"><i class="fas fa-cogs me-2"></i>Processing Your Application</h4>
+                </div>
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <div class="processing-spinner" id="processingSpinner">
+                            <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                        <div class="processing-complete d-none" id="processingComplete">
+                            <i class="fas fa-check-circle fa-4x text-success"></i>
+                        </div>
+                        <div class="processing-error d-none" id="processingError">
+                            <i class="fas fa-times-circle fa-4x text-danger"></i>
+                        </div>
+                    </div>
+                    
+                    <h5 id="processingStatus">Analyzing your CV...</h5>
+                    <p class="text-muted" id="processingMessage">Please wait while we process your application. This may take a moment.</p>
+                    
+                    <div class="progress mb-4">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" id="processingProgress" style="width: 0%"></div>
+                    </div>
+                    
+                    <div id="processingSteps">
+                        <div class="processing-step" id="step1">
+                            <i class="fas fa-file-pdf me-2"></i> Extracting data from your CV
+                        </div>
+                        <div class="processing-step" id="step2">
+                            <i class="fas fa-code me-2"></i> Analyzing skills and experience
+                        </div>
+                        <div class="processing-step" id="step3">
+                            <i class="fas fa-chart-pie me-2"></i> Matching with job requirements
+                        </div>
+                        <div class="processing-step" id="step4">
+                            <i class="fas fa-clipboard-check me-2"></i> Preparing results
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 d-none" id="errorContainer">
+                        <div class="alert alert-danger" id="errorMessage"></div>
+                        <div class="d-grid">
+                            <a href="{{ url_for('index') }}" class="btn btn-primary">
+                                Return to Home
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    <div class="d-flex align-items-center">
+                        <div class="me-2"><i class="fas fa-info-circle"></i></div>
+                        <small>File: {{ filename }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+.processing-step {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+    text-align: left;
+    background-color: #f8f9fa;
+    opacity: 0.5;
+}
+.processing-step.active {
+    background-color: #e8f4fe;
+    border-left: 4px solid #007bff;
+    opacity: 1;
+}
+.processing-step.complete {
+    background-color: #eaf7ee;
+    border-left: 4px solid #28a745;
+    opacity: 1;
+}
+.processing-step.error {
+    background-color: #feeeee;
+    border-left: 4px solid #dc3545;
+    opacity: 1;
+}
+.processing-spinner, .processing-complete, .processing-error {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let currentStep = 0;
+    const steps = [
+        document.getElementById('step1'),
+        document.getElementById('step2'),
+        document.getElementById('step3'),
+        document.getElementById('step4')
+    ];
+    
+    // Start the animation sequence
+    updateStep(currentStep);
+    
+    function updateStep(step) {
+        // Update progress bar
+        const progressBar = document.getElementById('processingProgress');
+        const percentage = ((step + 1) / steps.length) * 100;
+        progressBar.style.width = percentage + '%';
+        
+        // Reset all steps
+        steps.forEach((s, i) => {
+            s.classList.remove('active', 'complete');
+            if (i < step) {
+                s.classList.add('complete');
+            }
+        });
+        
+        // Set current step as active
+        if (step < steps.length) {
+            steps[step].classList.add('active');
+        }
+    }
+    
+    function simulateProcessing() {
+        const stepInterval = 1500; // 1.5 seconds per step
+        
+        // Increment through steps
+        const stepTimer = setInterval(() => {
+            currentStep++;
+            updateStep(currentStep);
+            
+            if (currentStep >= steps.length) {
+                clearInterval(stepTimer);
+                // Call the actual processing endpoint
+                processCV();
+            }
+        }, stepInterval);
+    }
+    
+    function processCV() {
+        // Call the server endpoint to process the CV
+        fetch('{{ url_for("process_cv") }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Show success
+                document.getElementById('processingSpinner').classList.add('d-none');
+                document.getElementById('processingComplete').classList.remove('d-none');
+                document.getElementById('processingStatus').textContent = 'Processing complete!';
+                document.getElementById('processingMessage').textContent = 'Redirecting you to your results...';
+                
+                // Redirect after a short delay
+                setTimeout(() => {
+                    window.location.href = data.redirect;
+                }, 1500);
+            } else {
+                // Show error
+                document.getElementById('processingSpinner').classList.add('d-none');
+                document.getElementById('processingError').classList.remove('d-none');
+                document.getElementById('processingStatus').textContent = 'Processing failed';
+                document.getElementById('processingMessage').textContent = 'There was an error processing your application.';
+                document.getElementById('errorContainer').classList.remove('d-none');
+                document.getElementById('errorMessage').textContent = data.error || 'An unknown error occurred';
+                
+                // Mark the last active step as error
+                steps.forEach(s => {
+                    if (s.classList.contains('active')) {
+                        s.classList.remove('active');
+                        s.classList.add('error');
+                    }
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('processingSpinner').classList.add('d-none');
+            document.getElementById('processingError').classList.remove('d-none');
+            document.getElementById('processingStatus').textContent = 'Processing failed';
+            document.getElementById('processingMessage').textContent = 'There was an error connecting to the server.';
+            document.getElementById('errorContainer').classList.remove('d-none');
+            document.getElementById('errorMessage').textContent = 'Network error. Please try again later.';
+            
+            // Mark all steps as error
+            steps.forEach(s => {
+                if (s.classList.contains('active')) {
+                    s.classList.remove('active');
+                    s.classList.add('error');
+                }
+            });
+        });
+    }
+    
+    // Start the simulation
+    simulateProcessing();
+});
+</script>
+{% endblock %}

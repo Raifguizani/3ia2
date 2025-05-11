@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Jobs{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-2 bg-dark text-light sidebar p-0">
+            <div class="p-3 border-bottom border-secondary">
+                <h5 class="sidebar-heading">Admin Dashboard</h5>
+            </div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_dashboard') }}">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ url_for('admin_jobs') }}">
+                        <i class="fas fa-briefcase me-2"></i>Job Descriptions
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_candidates') }}">
+                        <i class="fas fa-users me-2"></i>Candidates
+                    </a>
+                </li>
+                <li class="nav-item mt-4">
+                    <a class="nav-link" href="{{ url_for('admin_logout') }}">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-10 ms-sm-auto px-md-4 py-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2"><i class="fas fa-briefcase me-2"></i>Job Descriptions</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <a href="{{ url_for('admin_new_job') }}" class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i>Add New Job
+                    </a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    {% if jobs %}
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Job Title</th>
+                                    <th>Company</th>
+                                    <th>Location</th>
+                                    <th>Status</th>
+                                    <th>Created</th>
+                                    <th>Updated</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for job in jobs %}
+                                <tr>
+                                    <td>{{ job.job_title }}</td>
+                                    <td>{{ job.company }}</td>
+                                    <td>{{ job.location or '-' }}</td>
+                                    <td>
+                                        <span class="badge {% if job.status == 'published' %}bg-success{% else %}bg-secondary{% endif %}">
+                                            {{ job.status }}
+                                        </span>
+                                    </td>
+                                    <td>{{ job.created_at|replace('T', ' ')|truncate(16, true, '') }}</td>
+                                    <td>{{ job.updated_at|replace('T', ' ')|truncate(16, true, '') }}</td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ url_for('admin_edit_job', job_id=job.id) }}" class="btn btn-sm btn-outline-primary" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            {% if job.status == 'published' %}
+                                            <a href="{{ url_for('view_job', job_id=job.id) }}" class="btn btn-sm btn-outline-info" target="_blank" title="View Public">
+                                                <i class="fas fa-external-link-alt"></i>
+                                            </a>
+                                            {% endif %}
+                                            <button type="button" class="btn btn-sm btn-outline-danger" data-bs-toggle="modal" 
+                                                data-bs-target="#deleteJobModal" data-job-id="{{ job.id }}" data-job-title="{{ job.job_title }}" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% else %}
+                    <div class="text-center p-4">
+                        <div class="mb-4">
+                            <i class="fas fa-briefcase fa-3x text-secondary"></i>
+                        </div>
+                        <h5>No job descriptions yet</h5>
+                        <p class="text-muted">Create your first job description to start receiving applications.</p>
+                        <a href="{{ url_for('admin_new_job') }}" class="btn btn-primary">
+                            <i class="fas fa-plus me-2"></i>Create Job
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Job Modal -->
+<div class="modal fade" id="deleteJobModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title"><i class="fas fa-exclamation-triangle me-2"></i>Confirm Deletion</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete this job description?</p>
+                <p class="fw-bold" id="jobTitleToDelete"></p>
+                <p class="text-danger mb-0"><small>This action cannot be undone.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <form id="deleteJobForm" method="POST" action="">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash-alt me-2"></i>Delete Permanently
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Setup delete job modal
+    const deleteJobModal = document.getElementById('deleteJobModal');
+    if (deleteJobModal) {
+        deleteJobModal.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            const jobId = button.getAttribute('data-job-id');
+            const jobTitle = button.getAttribute('data-job-title');
+            
+            document.getElementById('jobTitleToDelete').textContent = jobTitle;
+            document.getElementById('deleteJobForm').action = "{{ url_for('admin_delete_job', job_id='') }}" + jobId;
+        });
+    }
+});
+</script>
+{% endblock %}
+
+{% endblock %}

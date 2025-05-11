@@ -1,0 +1,858 @@
+{% extends 'base.html' %}
+
+{% block title %}Analyse de Candidature{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <!-- Sidebar avec navigation entre sections -->
+        <div class="col-md-2 sidebar">
+            <div class="sticky-top pt-4">
+                <h5 class="sidebar-heading pb-2 border-bottom">Navigation</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#profil-candidat">
+                            <i class="fas fa-user me-2"></i>Profil Candidat
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#competences">
+                            <i class="fas fa-code me-2"></i>Compétences
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#langues">
+                            <i class="fas fa-language me-2"></i>Langues
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#experience">
+                            <i class="fas fa-briefcase me-2"></i>Expérience
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#formation">
+                            <i class="fas fa-graduation-cap me-2"></i>Formation
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#certifications">
+                            <i class="fas fa-certificate me-2"></i>Certifications
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#analyse-poste">
+                            <i class="fas fa-search me-2"></i>Analyse du Poste
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#correspondance">
+                            <i class="fas fa-percentage me-2"></i>Correspondance
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#email">
+                            <i class="fas fa-envelope me-2"></i>Email
+                        </a>
+                    </li>
+                </ul>
+                
+                {% if not view_only %}
+                <div class="mt-4 px-3">
+                    <a href="{{ url_for('index') }}" class="btn btn-outline-primary btn-sm w-100">
+                        <i class="fas fa-arrow-left me-2"></i>Retour
+                    </a>
+                </div>
+                {% else %}
+                <div class="mt-4 px-3">
+                    <a href="{{ url_for('admin_candidates') }}" class="btn btn-outline-primary btn-sm w-100">
+                        <i class="fas fa-arrow-left me-2"></i>Retour aux candidats
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Contenu principal -->
+        <div class="col-md-10">
+            {% if not is_admin and not view_only %}
+            <!-- Message de confirmation pour le candidat -->
+            <div class="alert alert-success mb-4">
+                <h4 class="alert-heading"><i class="fas fa-check-circle me-2"></i>Votre candidature a été soumise avec succès !</h4>
+                <p>Merci d'avoir postulé pour le poste de <strong>{{ results.job_data.job_title|default('') }}</strong> chez <strong>{{ results.job_data.company|default('') }}</strong>.</p>
+                {% if results.cv_data.personal_info and results.cv_data.personal_info.email %}
+                <p>Notre équipe de recrutement va examiner votre candidature et vous contactera par email à l'adresse <strong>{{ results.cv_data.personal_info.email }}</strong>.</p>
+                {% else %}
+                <p>Notre équipe de recrutement va examiner votre candidature et vous contactera prochainement.</p>
+                {% endif %}
+                <hr>
+                <p class="mb-0">Veuillez vérifier régulièrement votre boîte de réception (et vos spams) pour ne pas manquer notre réponse.</p>
+            </div>
+            {% endif %}
+        
+            <!-- Header avec résumé -->
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <h1>
+                    <i class="fas fa-user-check me-2"></i>
+                    {% if results.cv_data.personal_info and results.cv_data.personal_info.name %}
+                        {{ results.cv_data.personal_info.name }}
+                    {% else %}
+                        Candidature
+                    {% endif %}
+                </h1>
+                <div class="btn-toolbar">
+                    {% if is_admin %}
+                    <button class="btn btn-danger me-2" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        <i class="fas fa-trash me-2"></i>Supprimer
+                    </button>
+                    {% endif %}
+                    
+                    <div class="btn-group me-2">
+                        <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.print()">
+                            <i class="fas fa-print me-2"></i>Imprimer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-primary text-white rounded-circle p-3 me-3">
+                                    <i class="fas fa-user fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-0">
+                                        {% if results.cv_data.personal_info and results.cv_data.personal_info.name %}
+                                            {{ results.cv_data.personal_info.name }}
+                                        {% else %}
+                                            Candidat
+                                        {% endif %}
+                                    </h5>
+                                    <p class="text-muted mb-0">Candidature pour {{ results.job_data.job_title|default('') }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {% if results.cv_data.personal_info and results.cv_data.personal_info.email %}
+                                    <p><i class="fas fa-envelope me-2 text-primary"></i> {{ results.cv_data.personal_info.email }}</p>
+                                    {% endif %}
+                                    {% if results.cv_data.personal_info and results.cv_data.personal_info.phone %}
+                                    <p><i class="fas fa-phone me-2 text-primary"></i> {{ results.cv_data.personal_info.phone }}</p>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    {% if results.cv_data.personal_info and results.cv_data.personal_info.linkedin %}
+                                    <p>
+                                        <i class="fab fa-linkedin me-2 text-primary"></i>
+                                        <a href="{{ results.cv_data.personal_info.linkedin }}" target="_blank">LinkedIn</a>
+                                    </p>
+                                    {% endif %}
+                                    {% if results.cv_data.personal_info and results.cv_data.personal_info.github %}
+                                    <p>
+                                        <i class="fab fa-github me-2 text-primary"></i>
+                                        <a href="{{ results.cv_data.personal_info.github }}" target="_blank">GitHub</a>
+                                    </p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="card-title">Correspondance avec le poste</h5>
+                                    <p class="text-muted mb-0">{{ results.job_data.job_title|default('') }} - {{ results.job_data.company|default('') }}</p>
+                                </div>
+                                <div>
+                                    {% if results.match_data and results.match_data.technical_skills_match is defined and results.match_data.domain_match is defined %}
+                                        {% set match_avg = (results.match_data.technical_skills_match + results.match_data.domain_match) / 2 %}
+                                    {% else %}
+                                        {% set match_avg = 0 %}
+                                    {% endif %}
+                                    <div class="circular-progress" style="--percentage: {{ match_avg }}; --size: 80px;">
+                                        <div class="percentage">{{ match_avg|round }}%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>Compétences techniques</span>
+                                <span class="badge {% if results.match_data.technical_skills_match|default(0) >= 70 %}bg-success{% elif results.match_data.technical_skills_match|default(0) >= 40 %}bg-warning{% else %}bg-danger{% endif %}">
+                                    {{ results.match_data.technical_skills_match|default(0) }}%
+                                </span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                <span>Adéquation au domaine</span>
+                                <span class="badge {% if results.match_data.domain_match|default(0) >= 70 %}bg-success{% elif results.match_data.domain_match|default(0) >= 40 %}bg-warning{% else %}bg-danger{% endif %}">
+                                    {{ results.match_data.domain_match|default(0) }}%
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section Profil du Candidat -->
+            <section id="profil-candidat" class="mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-id-card me-2"></i>Profil du Candidat
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h6>Résumé du profil</h6>
+                                {% if results.cv_data.summary %}
+                                <p>{{ results.cv_data.summary }}</p>
+                                {% else %}
+                                <p class="text-muted">Aucun résumé disponible.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section Compétences -->
+            <section id="competences" class="mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-code me-2"></i>Compétences Techniques
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="d-flex flex-wrap gap-2 mb-3">
+                                    {% if results.cv_data.skills and results.cv_data.skills.technical_skills %}
+                                        {% for skill in results.cv_data.skills.technical_skills %}
+                                        <span class="badge badge-skill">{{ skill }}</span>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p class="text-muted">Aucune compétence technique spécifiée.</p>
+                                    {% endif %}
+                                </div>
+                                
+                                <h6>Compétences Personnelles</h6>
+                                <div class="d-flex flex-wrap gap-2">
+                                    {% if results.cv_data.skills and results.cv_data.skills.soft_skills %}
+                                        {% for skill in results.cv_data.skills.soft_skills %}
+                                        <span class="badge badge-skill">{{ skill }}</span>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p class="text-muted">Aucune compétence personnelle spécifiée.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section Langues -->
+            <section id="langues" class="mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-language me-2"></i>Langues
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Langues du Candidat</h6>
+                                <div class="d-flex flex-wrap gap-2 mb-3">
+                                    {% if results.cv_data.skills and results.cv_data.skills.languages and results.cv_data.skills.languages|length > 0 %}
+                                        {% for language in results.cv_data.skills.languages %}
+                                        <div class="card mb-2 w-100">
+                                            <div class="card-body py-2">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div>
+                                                        <i class="fas fa-language me-2 text-primary"></i>
+                                                        {{ language }}
+                                                    </div>
+                                                    {% if results.job_data.languages and language in results.job_data.languages %}
+                                                    <span class="badge bg-success">Requis pour le poste</span>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p class="text-muted">Aucune langue spécifiée dans le CV.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <h6>Langues Requises pour le Poste</h6>
+                                <div class="d-flex flex-wrap gap-2 mb-3">
+                                    {% if results.job_data.languages and results.job_data.languages|length > 0 %}
+                                        {% for language in results.job_data.languages %}
+                                        <div class="card mb-2 w-100">
+                                            <div class="card-body py-2">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div>
+                                                        <i class="fas fa-language me-2 text-primary"></i>
+                                                        {{ language }}
+                                                    </div>
+                                                    {% if results.cv_data.skills and results.cv_data.skills.languages and language in results.cv_data.skills.languages %}
+                                                    <span class="badge bg-success">Maîtrisée</span>
+                                                    {% else %}
+                                                    <span class="badge bg-danger">Manquante</span>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p class="text-muted">Aucune langue requise pour ce poste.</p>
+                                    {% endif %}
+                                </div>
+                                
+                                <div class="alert alert-info">
+                                    <p class="mb-0">
+                                        <i class="fas fa-info-circle me-2"></i>
+                                        Correspondance linguistique : <strong>{{ results.match_data.languages_match|default(0) }}%</strong>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section Expérience -->
+            <section id="experience" class="mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-briefcase me-2"></i>Expérience Professionnelle
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        {% if results.cv_data.experience and results.cv_data.experience|length > 0 %}
+                            {% for exp in results.cv_data.experience %}
+                                <div class="experience-item mb-3">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h5 class="mb-0">{{ exp.title|default('Poste non spécifié') }}</h5>
+                                            <p class="text-muted mb-1">{{ exp.company|default('') }}{% if exp.location %} - {{ exp.location }}{% endif %}</p>
+                                        </div>
+                                        <div>
+                                            <span class="badge bg-secondary">{{ exp.period|default('Période non spécifiée') }}</span>
+                                        </div>
+                                    </div>
+                                    
+                                    {% if exp.responsibilities and exp.responsibilities|length > 0 %}
+                                    <ul class="mt-2">
+                                        {% for resp in exp.responsibilities %}
+                                        <li>{{ resp }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                </div>
+                                {% if not loop.last %}<hr>{% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-muted">Aucune expérience professionnelle spécifiée.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section Formation -->
+            <section id="formation" class="mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-graduation-cap me-2"></i>Formation
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        {% if results.cv_data.education and results.cv_data.education|length > 0 %}
+                            {% for edu in results.cv_data.education %}
+                                <div class="education-item mb-3">
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <h5 class="mb-0">{{ edu.degree|default('Diplôme non spécifié') }}</h5>
+                                            <p class="text-muted mb-1">{{ edu.institution|default('') }}{% if edu.location %} - {{ edu.location }}{% endif %}</p>
+                                        </div>
+                                        <div>
+                                            <span class="badge bg-secondary">{{ edu.period|default('Période non spécifiée') }}</span>
+                                        </div>
+                                    </div>
+                                    {% if edu.field %}
+                                    <p class="mb-0"><strong>Domaine :</strong> {{ edu.field }}</p>
+                                    {% endif %}
+                                    {% if edu.grade %}
+                                    <p class="mb-0"><strong>Mention :</strong> {{ edu.grade }}</p>
+                                    {% endif %}
+                                </div>
+                                {% if not loop.last %}<hr>{% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <p class="text-muted">Aucune formation spécifiée.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section Certifications -->
+            <section id="certifications" class="mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-certificate me-2"></i>Certifications
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        {% if results.cv_data.certifications and results.cv_data.certifications|length > 0 %}
+                            <div class="row">
+                                {% for cert in results.cv_data.certifications %}
+                                    <div class="col-md-6 col-lg-4 mb-3">
+                                        <div class="card h-100 border-primary">
+                                            <div class="card-header bg-light">
+                                                <h6 class="mb-0">{{ cert.name|default('Certification non spécifiée') }}</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <p class="mb-1"><strong>Émetteur :</strong> {{ cert.issuer|default('Non spécifié') }}</p>
+                                                {% if cert.date %}
+                                                <p class="mb-1"><strong>Date :</strong> {{ cert.date }}</p>
+                                                {% endif %}
+                                                {% if cert.field %}
+                                                <p class="mb-1"><strong>Domaine :</strong> {{ cert.field }}</p>
+                                                {% endif %}
+                                                {% if cert.id %}
+                                                <p class="mb-0"><strong>ID :</strong> {{ cert.id }}</p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <p class="text-muted">Aucune certification spécifiée.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section Analyse du Poste -->
+            <section id="analyse-poste" class="mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-search me-2"></i>Analyse du Poste
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Informations sur le Poste</h6>
+                                <ul class="list-unstyled mb-4">
+                                    <li><strong>Titre :</strong> {{ results.job_data.job_title|default('Non spécifié') }}</li>
+                                    <li><strong>Entreprise :</strong> {{ results.job_data.company|default('Non spécifiée') }}</li>
+                                    {% if results.job_data.location %}
+                                    <li><strong>Lieu :</strong> {{ results.job_data.location }}</li>
+                                    {% endif %}
+                                    <li><strong>Expérience requise :</strong> {{ results.job_data.experience_years|default('Non spécifiée') }}</li>
+                                </ul>
+                                
+                                <h6>Formation requise</h6>
+                                {% if results.job_data.education and results.job_data.education|length > 0 %}
+                                <ul>
+                                    {% for edu in results.job_data.education %}
+                                    <li>{{ edu }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% else %}
+                                <p class="text-muted">Aucune formation requise spécifiée.</p>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Compétences Techniques Requises</h6>
+                                <div class="d-flex flex-wrap gap-2 mb-3">
+                                    {% if results.job_data.technical_skills and results.job_data.technical_skills|length > 0 %}
+                                        {% for skill in results.job_data.technical_skills %}
+                                        <span class="badge badge-skill">{{ skill }}</span>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p class="text-muted">Aucune compétence technique requise spécifiée.</p>
+                                    {% endif %}
+                                </div>
+                                
+                                <h6>Compétences Personnelles Requises</h6>
+                                <div class="d-flex flex-wrap gap-2">
+                                    {% if results.job_data.soft_skills and results.job_data.soft_skills|length > 0 %}
+                                        {% for skill in results.job_data.soft_skills %}
+                                        <span class="badge badge-skill">{{ skill }}</span>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p class="text-muted">Aucune compétence personnelle requise spécifiée.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section Correspondance -->
+            <section id="correspondance" class="mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-percentage me-2"></i>Correspondance
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-md-12">
+                                <h6>Évaluation Finale</h6>
+                                {% if results.match_data and results.match_data.final_assessment %}
+                                <div class="alert {% if match_avg >= 70 %}alert-success{% elif match_avg >= 40 %}alert-warning{% else %}alert-danger{% endif %}">
+                                    {{ results.match_data.final_assessment }}
+                                </div>
+                                {% else %}
+                                <div class="alert alert-info">
+                                    L'évaluation finale n'est pas disponible.
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <h6>Points Forts</h6>
+                                <div class="d-flex flex-wrap gap-2">
+                                    {% if results.match_data and results.match_data.strengths and results.match_data.strengths|length > 0 %}
+                                        {% for strength in results.match_data.strengths %}
+                                        <span class="badge bg-success">{{ strength }}</span>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p class="text-muted">Aucun point fort spécifique identifié.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Compétences Manquantes</h6>
+                                <div class="d-flex flex-wrap gap-2">
+                                    {% if results.match_data and results.match_data.missing_skills and results.match_data.missing_skills|length > 0 %}
+                                        {% for skill in results.match_data.missing_skills %}
+                                        <span class="badge bg-danger">{{ skill }}</span>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p class="text-muted">Aucune compétence manquante identifiée.</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h6>Scores de Correspondance</h6>
+                                <table class="table table-bordered">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Critère</th>
+                                            <th>Score</th>
+                                            <th width="50%">Graphique</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Compétences Techniques</td>
+                                            <td>{{ results.match_data.technical_skills_match|default(0) }}%</td>
+                                            <td>
+                                                <div class="progress">
+                                                    <div class="progress-bar {% if results.match_data.technical_skills_match|default(0) >= 70 %}bg-success{% elif results.match_data.technical_skills_match|default(0) >= 40 %}bg-warning{% else %}bg-danger{% endif %}" 
+                                                         role="progressbar" 
+                                                         style="width: {{ results.match_data.technical_skills_match|default(0) }}%" 
+                                                         aria-valuenow="{{ results.match_data.technical_skills_match|default(0) }}" 
+                                                         aria-valuemin="0" 
+                                                         aria-valuemax="100"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Adéquation au Domaine</td>
+                                            <td>{{ results.match_data.domain_match|default(0) }}%</td>
+                                            <td>
+                                                <div class="progress">
+                                                    <div class="progress-bar {% if results.match_data.domain_match|default(0) >= 70 %}bg-success{% elif results.match_data.domain_match|default(0) >= 40 %}bg-warning{% else %}bg-danger{% endif %}" 
+                                                         role="progressbar" 
+                                                         style="width: {{ results.match_data.domain_match|default(0) }}%" 
+                                                         aria-valuenow="{{ results.match_data.domain_match|default(0) }}" 
+                                                         aria-valuemin="0" 
+                                                         aria-valuemax="100"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Formation</td>
+                                            <td>{{ results.match_data.education_match|default(0) }}%</td>
+                                            <td>
+                                                <div class="progress">
+                                                    <div class="progress-bar {% if results.match_data.education_match|default(0) >= 70 %}bg-success{% elif results.match_data.education_match|default(0) >= 40 %}bg-warning{% else %}bg-danger{% endif %}" 
+                                                         role="progressbar" 
+                                                         style="width: {{ results.match_data.education_match|default(0) }}%" 
+                                                         aria-valuenow="{{ results.match_data.education_match|default(0) }}" 
+                                                         aria-valuemin="0" 
+                                                         aria-valuemax="100"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Expérience</td>
+                                            <td>{{ results.match_data.experience_match|default(0) }}%</td>
+                                            <td>
+                                                <div class="progress">
+                                                    <div class="progress-bar {% if results.match_data.experience_match|default(0) >= 70 %}bg-success{% elif results.match_data.experience_match|default(0) >= 40 %}bg-warning{% else %}bg-danger{% endif %}" 
+                                                         role="progressbar" 
+                                                         style="width: {{ results.match_data.experience_match|default(0) }}%" 
+                                                         aria-valuenow="{{ results.match_data.experience_match|default(0) }}" 
+                                                         aria-valuemin="0" 
+                                                         aria-valuemax="100"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Langues</td>
+                                            <td>{{ results.match_data.languages_match|default(0) }}%</td>
+                                            <td>
+                                                <div class="progress">
+                                                    <div class="progress-bar {% if results.match_data.languages_match|default(0) >= 70 %}bg-success{% elif results.match_data.languages_match|default(0) >= 40 %}bg-warning{% else %}bg-danger{% endif %}" 
+                                                         role="progressbar" 
+                                                         style="width: {{ results.match_data.languages_match|default(0) }}%" 
+                                                         aria-valuenow="{{ results.match_data.languages_match|default(0) }}" 
+                                                         aria-valuemin="0" 
+                                                         aria-valuemax="100"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Compétences Personnelles</td>
+                                            <td>{{ results.match_data.soft_skills_match|default(0) }}%</td>
+                                            <td>
+                                                <div class="progress">
+                                                    <div class="progress-bar {% if results.match_data.soft_skills_match|default(0) >= 70 %}bg-success{% elif results.match_data.soft_skills_match|default(0) >= 40 %}bg-warning{% else %}bg-danger{% endif %}" 
+                                                         role="progressbar" 
+                                                         style="width: {{ results.match_data.soft_skills_match|default(0) }}%" 
+                                                         aria-valuenow="{{ results.match_data.soft_skills_match|default(0) }}" 
+                                                         aria-valuemin="0" 
+                                                         aria-valuemax="100"></div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section Email (seulement visible pour les admins) -->
+            {% if is_admin %}
+            <section id="email" class="mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-envelope me-2"></i>Email
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        {% if results.email %}
+                            <div class="card email-preview mb-4">
+                                <div class="card-header bg-light">
+                                    <strong>Objet : </strong>{{ results.email.subject }}
+                                </div>
+                                <div class="card-body">
+                                    {{ results.email.body|nl2br }}
+                                </div>
+                            </div>
+                            
+                            <!-- Formulaire d'envoi d'email -->
+                            <div class="card border-primary mb-3">
+                                <div class="card-header bg-primary text-white">
+                                    <h6 class="mb-0"><i class="fas fa-paper-plane me-2"></i>Envoyer un Email au Candidat</h6>
+                                </div>
+                                <div class="card-body">
+                                    <form id="emailForm">
+                                        <div class="mb-3">
+                                            <label for="recipient_email" class="form-label">Destinataire</label>
+                                            <input type="email" class="form-control" id="recipient_email" name="recipient_email" 
+                                                   value="{% if results.cv_data.personal_info and results.cv_data.personal_info.email %}{{ results.cv_data.personal_info.email }}{% endif %}" 
+                                                   required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="email_subject" class="form-label">Objet</label>
+                                            <input type="text" class="form-control" id="email_subject" name="email_subject" 
+                                                   value="{% if results.email %}{{ results.email.subject }}{% endif %}" 
+                                                   required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="email_body" class="form-label">Message</label>
+                                            <textarea class="form-control" id="email_body" name="email_body" rows="8" required>{% if results.email %}{{ results.email.body }}{% endif %}</textarea>
+                                        </div>
+                                        <div class="d-grid gap-2">
+                                            <button type="button" id="sendEmailBtn" class="btn btn-primary">
+                                                <i class="fas fa-paper-plane me-2"></i>Envoyer l'Email
+                                            </button>
+                                        </div>
+                                    </form>
+                                    <div id="emailResult" class="mt-3" style="display: none;"></div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <p class="text-muted">Aucun email disponible.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+            {% else %}
+            <!-- Message pour le candidat concernant la notification par email -->
+            <section id="email" class="mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="fas fa-envelope me-2"></i>Notification par Email
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center py-4">
+                            <div class="mb-4">
+                                <i class="fas fa-envelope-open-text fa-4x text-primary"></i>
+                            </div>
+                            <h5>Vous recevrez une réponse par email</h5>
+                            <p class="mb-0">
+                                L'équipe de recrutement de {{ results.job_data.company|default('notre entreprise') }} examinera votre candidature 
+                                {% if results.cv_data.personal_info and results.cv_data.personal_info.email %}
+                                et vous contactera à l'adresse <strong>{{ results.cv_data.personal_info.email }}</strong> pour vous informer de sa décision.
+                                {% else %}
+                                et vous contactera prochainement pour vous informer de sa décision.
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Modal de confirmation de suppression -->
+{% if is_admin %}
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmer la suppression</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Êtes-vous sûr de vouloir supprimer le dossier de candidature 
+                {% if results.cv_data.personal_info and results.cv_data.personal_info.name %}
+                de <strong>{{ results.cv_data.personal_info.name }}</strong> ?
+                {% else %}
+                de ce candidat ?
+                {% endif %}
+                </p>
+                <p class="text-danger mb-0"><small>Cette action est irréversible.</small></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <form action="{{ url_for('admin_delete_candidate', candidate_id=results.id) }}" method="POST">
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash-alt me-2"></i>Supprimer définitivement
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Animation des barres de progression
+    const progressBars = document.querySelectorAll('.progress-bar');
+    progressBars.forEach(function(bar) {
+        const width = bar.style.width;
+        bar.style.width = '0%';
+        setTimeout(function() {
+            bar.style.transition = 'width 1s';
+            bar.style.width = width;
+        }, 200);
+    });
+    
+    // Gestion de l'envoi d'email (uniquement pour admin)
+    const sendEmailBtn = document.getElementById('sendEmailBtn');
+    if (sendEmailBtn) {
+        sendEmailBtn.addEventListener('click', function() {
+            // Récupérer les valeurs du formulaire
+            const recipient = document.getElementById('recipient_email').value;
+            const subject = document.getElementById('email_subject').value;
+            const body = document.getElementById('email_body').value;
+            
+            // Vérifier que tous les champs sont remplis
+            if (!recipient || !subject || !body) {
+                showEmailResult('Veuillez remplir tous les champs.', 'warning');
+                return;
+            }
+            
+            // Désactiver le bouton et afficher un message de chargement
+            sendEmailBtn.disabled = true;
+            sendEmailBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Envoi en cours...';
+            
+            // Envoyer la requête AJAX
+            fetch('/send_email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    'recipient_email': recipient,
+                    'email_subject': subject,
+                    'email_body': body
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Afficher le résultat
+                showEmailResult(data.message, data.success ? 'success' : 'danger');
+                
+                // Réactiver le bouton
+                sendEmailBtn.disabled = false;
+                sendEmailBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i>Envoyer l\'Email';
+            })
+            .catch(error => {
+                // Afficher l'erreur
+                showEmailResult('Erreur lors de l\'envoi de l\'email : ' + error, 'danger');
+                
+                // Réactiver le bouton
+                sendEmailBtn.disabled = false;
+                sendEmailBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i>Envoyer l\'Email';
+            });
+        });
+    }
+    
+    function showEmailResult(message, type) {
+        const resultDiv = document.getElementById('emailResult');
+        resultDiv.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+        resultDiv.style.display = 'block';
+    }
+});
+</script>
+{% endblock %}

@@ -1,0 +1,321 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if job %}Edit Job{% else %}Create Job{% endif %}{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-2 bg-dark text-light sidebar p-0">
+            <div class="p-3 border-bottom border-secondary">
+                <h5 class="sidebar-heading">Admin Dashboard</h5>
+            </div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_dashboard') }}">
+                        <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ url_for('admin_jobs') }}">
+                        <i class="fas fa-briefcase me-2"></i>Job Descriptions
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_candidates') }}">
+                        <i class="fas fa-users me-2"></i>Candidates
+                    </a>
+                </li>
+                <li class="nav-item mt-4">
+                    <a class="nav-link" href="{{ url_for('admin_logout') }}">
+                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="col-md-10 ms-sm-auto px-md-4 py-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                <h1 class="h2">
+                    <i class="fas {% if job %}fa-edit{% else %}fa-plus{% endif %} me-2"></i>
+                    {% if job %}Edit Job{% else %}Create New Job{% endif %}
+                </h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <a href="{{ url_for('admin_jobs') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Jobs
+                    </a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <form method="POST" id="jobForm">
+                        <div class="row">
+                            <!-- Left Column -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="job_title" class="form-label">Job Title *</label>
+                                    <input type="text" class="form-control" id="job_title" name="job_title" 
+                                           value="{% if job %}{{ job.job_title }}{% endif %}" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="company" class="form-label">Company *</label>
+                                    <input type="text" class="form-control" id="company" name="company" 
+                                           value="{% if job %}{{ job.company }}{% endif %}" required>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="location" class="form-label">Location</label>
+                                    <input type="text" class="form-control" id="location" name="location" 
+                                           value="{% if job %}{{ job.location }}{% endif %}" placeholder="e.g. Remote, New York, Paris">
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="experience_years" class="form-label">Experience Required</label>
+                                    <input type="text" class="form-control" id="experience_years" name="experience_years"
+                                           value="{% if job %}{{ job.experience_years }}{% endif %}" placeholder="e.g. 2+ years">
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="education_input" class="form-label">Education Requirements</label>
+                                    <div class="input-group mb-2">
+                                        <input type="text" class="form-control" id="education_input" placeholder="e.g. Bachelor's in Computer Science">
+                                        <button type="button" class="btn btn-outline-secondary" id="add_education">Add</button>
+                                    </div>
+                                    <div id="education_container" class="tag-container">
+                                        {% if job and job.education %}
+                                            {% for edu in job.education %}
+                                                <div class="tag">
+                                                    {{ edu }}
+                                                    <input type="hidden" name="education" value="{{ edu }}">
+                                                    <i class="fas fa-times remove-tag"></i>
+                                                </div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Right Column -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="technical_skills_input" class="form-label">Technical Skills Required</label>
+                                    <div class="input-group mb-2">
+                                        <input type="text" class="form-control" id="technical_skills_input" placeholder="e.g. Python, React, SQL">
+                                        <button type="button" class="btn btn-outline-secondary" id="add_technical_skill">Add</button>
+                                    </div>
+                                    <div id="technical_skills_container" class="tag-container">
+                                        {% if job and job.technical_skills %}
+                                            {% for skill in job.technical_skills %}
+                                                <div class="tag">
+                                                    {{ skill }}
+                                                    <input type="hidden" name="technical_skills" value="{{ skill }}">
+                                                    <i class="fas fa-times remove-tag"></i>
+                                                </div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="soft_skills_input" class="form-label">Soft Skills Required</label>
+                                    <div class="input-group mb-2">
+                                        <input type="text" class="form-control" id="soft_skills_input" placeholder="e.g. Communication, Teamwork">
+                                        <button type="button" class="btn btn-outline-secondary" id="add_soft_skill">Add</button>
+                                    </div>
+                                    <div id="soft_skills_container" class="tag-container">
+                                        {% if job and job.soft_skills %}
+                                            {% for skill in job.soft_skills %}
+                                                <div class="tag">
+                                                    {{ skill }}
+                                                    <input type="hidden" name="soft_skills" value="{{ skill }}">
+                                                    <i class="fas fa-times remove-tag"></i>
+                                                </div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="languages_input" class="form-label">Languages Required</label>
+                                    <div class="input-group mb-2">
+                                        <input type="text" class="form-control" id="languages_input" placeholder="e.g. English, French">
+                                        <button type="button" class="btn btn-outline-secondary" id="add_language">Add</button>
+                                    </div>
+                                    <div id="languages_container" class="tag-container">
+                                        {% if job and job.languages %}
+                                            {% for language in job.languages %}
+                                                <div class="tag">
+                                                    {{ language }}
+                                                    <input type="hidden" name="languages" value="{{ language }}">
+                                                    <i class="fas fa-times remove-tag"></i>
+                                                </div>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label class="form-label">Job Status</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="status" id="status_draft" value="draft"
+                                               {% if not job or job.status == 'draft' or not job.status %}checked{% endif %}>
+                                        <label class="form-check-label" for="status_draft">
+                                            <span class="badge bg-secondary">Draft</span> - Save but don't publish
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="status" id="status_published" value="published"
+                                               {% if job and job.status == 'published' %}checked{% endif %}>
+                                        <label class="form-check-label" for="status_published">
+                                            <span class="badge bg-success">Published</span> - Make visible to candidates
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Full Width -->
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="description" class="form-label">Job Description *</label>
+                                    <textarea class="form-control" id="description" name="description" rows="10" required>{% if job %}{{ job.description }}{% endif %}</textarea>
+                                    <div class="form-text">Write a detailed job description including responsibilities, qualifications, and benefits.</div>
+                                </div>
+                                
+                                <div class="d-flex justify-content-between">
+                                    <a href="{{ url_for('admin_jobs') }}" class="btn btn-outline-secondary">Cancel</a>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas {% if job %}fa-save{% else %}fa-plus{% endif %} me-2"></i>
+                                        {% if job %}Update{% else %}Create{% endif %} Job
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<style>
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    min-height: 2rem;
+    padding: 0.5rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+
+.tag {
+    background-color: #e9ecef;
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+}
+
+.tag .remove-tag {
+    margin-left: 0.5rem;
+    cursor: pointer;
+    color: #6c757d;
+}
+
+.tag .remove-tag:hover {
+    color: #dc3545;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Technical Skills
+    document.getElementById('add_technical_skill').addEventListener('click', function() {
+        const input = document.getElementById('technical_skills_input');
+        if (input.value.trim()) {
+            addTag('technical_skills_container', input.value.trim(), 'technical_skills');
+            input.value = '';
+        }
+    });
+    
+    // Soft Skills
+    document.getElementById('add_soft_skill').addEventListener('click', function() {
+        const input = document.getElementById('soft_skills_input');
+        if (input.value.trim()) {
+            addTag('soft_skills_container', input.value.trim(), 'soft_skills');
+            input.value = '';
+        }
+    });
+    
+    // Languages
+    document.getElementById('add_language').addEventListener('click', function() {
+        const input = document.getElementById('languages_input');
+        if (input.value.trim()) {
+            addTag('languages_container', input.value.trim(), 'languages');
+            input.value = '';
+        }
+    });
+    
+    // Education
+    document.getElementById('add_education').addEventListener('click', function() {
+        const input = document.getElementById('education_input');
+        if (input.value.trim()) {
+            addTag('education_container', input.value.trim(), 'education');
+            input.value = '';
+        }
+    });
+    
+    // Handle Enter key in inputs
+    const tagInputs = ['technical_skills_input', 'soft_skills_input', 'languages_input', 'education_input'];
+    tagInputs.forEach(id => {
+        document.getElementById(id).addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const addButton = this.nextElementSibling;
+                addButton.click();
+            }
+        });
+    });
+    
+    // Handle removal of tags
+    document.querySelectorAll('.remove-tag').forEach(btn => {
+        btn.addEventListener('click', function() {
+            this.parentNode.remove();
+        });
+    });
+    
+    function addTag(containerId, value, inputName) {
+        const container = document.getElementById(containerId);
+        const tag = document.createElement('div');
+        tag.className = 'tag';
+        
+        // Add the text
+        tag.appendChild(document.createTextNode(value));
+        
+        // Add hidden input
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = inputName;
+        input.value = value;
+        tag.appendChild(input);
+        
+        // Add remove button
+        const removeIcon = document.createElement('i');
+        removeIcon.className = 'fas fa-times remove-tag';
+        removeIcon.addEventListener('click', function() {
+            tag.remove();
+        });
+        tag.appendChild(removeIcon);
+        
+        // Add to container
+        container.appendChild(tag);
+    }
+});
+</script>
+{% endblock %}

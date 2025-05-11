@@ -1,0 +1,128 @@
+{
+    "success": true,
+    "cv_data": {
+        "personal_info": {
+            "name": "YOUSSEF CHIRCHI ETUDIANT EN INTELLIGENCE ARTIFICIELLE E T U D I A N T",
+            "email": "fessuoyoussef@gmail.com",
+            "phone": "+216-25-26-26-50",
+            "linkedin": "linkedin.com/in/youssef-chirchi",
+            "github": "",
+            "website": "",
+            "address": ""
+        },
+        "education": [
+            {
+                "degree": "Baccalaureat en Mathematiques",
+                "institution": "ESPRIT",
+                "period": "2025",
+                "field": "Mathematics"
+            },
+            {
+                "degree": "Ing\u00e9nieurie",
+                "institution": "",
+                "period": "Not specified",
+                "field": "Intelligence Artificielle"
+            }
+        ],
+        "experience": [
+            {
+                "title": "Not specified",
+                "company": "Not specified",
+                "period": "Not specified",
+                "location": "Not specified",
+                "responsibilities": [
+                    "Apprentissage automatique",
+                    "Solutions d'IA"
+                ],
+                "contract_type": "Not specified"
+            }
+        ],
+        "skills": {
+            "technical_skills": [
+                "Apprentissage automatique",
+                "Solutions d'IA",
+                "Intelligence Artificielle"
+            ],
+            "languages": [
+                "French",
+                "English"
+            ],
+            "soft_skills": [
+                "Mettre mes comp\u00e9tences au service de projets impactants",
+                "Motiv\u00e9 pour contribuer \u00e0 l'avenir de la technologie"
+            ]
+        },
+        "certifications": [],
+        "projects": [
+            {
+                "title": "Not specified",
+                "description": "Not specified",
+                "technologies": [
+                    "Intelligence Artificielle"
+                ],
+                "period": "Not specified",
+                "results": "",
+                "link": ""
+            }
+        ],
+        "summary": "As a highly motivated and passionate student in Intelligence Artificielle, I have a strong desire to apply my skills and knowledge to impactful projects. With experience in apprenticeship automatique and solutions d'IA, I am confident in my ability to contribute to the future of technology."
+    },
+    "job_data": {
+        "job_title": "Data Scientist",
+        "company": "InsightAI Technologies",
+        "location": "Hybrid \u2013 Paris, France / Remote",
+        "technical_skills": [
+            "Python",
+            "pandas",
+            "scikit-learn",
+            "NumPy",
+            "SQL"
+        ],
+        "experience_years": "2+ years",
+        "education": [
+            "Master\u2019s degree or PhD in Computer Science",
+            "Statistics",
+            "Applied Mathematics",
+            "related field"
+        ],
+        "soft_skills": [
+            "Excellent problem-solving skills and attention to detail",
+            "Strong communication and presentation abilities"
+        ],
+        "languages": []
+    },
+    "match_data": {
+        "technical_skills_match": 20,
+        "education_match": 0,
+        "experience_match": 30,
+        "languages_match": 100,
+        "soft_skills_match": 40,
+        "domain_match": 10,
+        "missing_skills": [
+            "Python",
+            "pandas",
+            "scikit-learn",
+            "NumPy",
+            "SQL"
+        ],
+        "strengths": [
+            "Apprentissage automatique",
+            "Solutions d'IA",
+            "Mettre mes comp\u00e9tences au service de projets impactants",
+            "Motiv\u00e9 pour contribuer \u00e0 l'avenir de la technologie"
+        ],
+        "final_assessment": "The candidate has some relevant technical skills, but they are not specific to the Data Scientist role. Their education and experience do not match the job requirements. However, their strong motivation and passion for AI could be an asset."
+    },
+    "email": {
+        "subject": "Regarding your application for Data Scientist at InsightAI Technologies",
+        "body": "Dear YOUSSEF CHIRCHI ETUDIANT EN INTELLIGENCE ARTIFICIELLE E T U D I A N T,\n\nThank you for your interest in the Data Scientist position at InsightAI Technologies and for the time you invested in applying.\n\nAfter careful consideration of your profile, we regret to inform you that we have decided to move forward with other candidates whose qualifications more closely match our current needs.\n\nFor your future applications, you may want to develop skills in Python, pandas, scikit-learn, NumPy and SQL.\n\nWe appreciate your interest in InsightAI Technologies and wish you success in your job search.\n\nBest regards,\nInsightAI Technologies Recruitment Team"
+    },
+    "processing_time": "73.18 seconds",
+    "job_id": "a553d9be-64c2-4346-940b-2adfd159787e",
+    "job_title": "kbhv",
+    "company": "Atia",
+    "application_date": "2025-04-25 00:32:33",
+    "cv_filename": "8dc536ce-a723-4dde-83f4-45097fa3c20d_Copie_de_Grey_Modern_Professional_CV_Resume.pdf",
+    "email_sent": true,
+    "email_sent_date": "2025-04-25 00:35:13"
+}

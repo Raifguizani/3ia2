@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block title %}Apply for {{ job.job_title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <!-- Job Description Column -->
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-briefcase me-2"></i>{{ job.job_title }}</h4>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <h5 class="mb-3">{{ job.company }}</h5>
+                        {% if job.location %}
+                        <p><i class="fas fa-map-marker-alt me-2 text-primary"></i>{{ job.location }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h5 class="border-bottom pb-2">Description</h5>
+                        <div class="job-description">
+                            {{ job.description | safe }}
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <h5 class="border-bottom pb-2">Technical Skills Required</h5>
+                            <div class="mt-2">
+                                {% for skill in job.technical_skills %}
+                                <span class="badge badge-skill mb-2 me-2">{{ skill }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-4">
+                            <h5 class="border-bottom pb-2">Soft Skills</h5>
+                            <div class="mt-2">
+                                {% for skill in job.soft_skills %}
+                                <span class="badge bg-light text-dark badge-skill mb-2 me-2">{{ skill }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <h5 class="border-bottom pb-2">Education Requirements</h5>
+                            <ul class="ps-3 mt-2">
+                                {% for edu in job.education %}
+                                <li>{{ edu }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        
+                        <div class="col-md-6 mb-4">
+                            <h5 class="border-bottom pb-2">Experience Required</h5>
+                            <p class="mt-2">{{ job.experience_years }}</p>
+                            
+                            {% if job.languages %}
+                            <h5 class="border-bottom pb-2 mt-4">Languages</h5>
+                            <div class="mt-2">
+                                {% for language in job.languages %}
+                                <span class="badge bg-info badge-skill mb-2 me-2">{{ language }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Application Form Column -->
+        <div class="col-lg-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-file-alt me-2"></i>Apply Now</h4>
+                </div>
+                <div class="card-body">
+                    <form action="{{ url_for('apply_job', job_id=job.id) }}" method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="cv_file" class="form-label">Upload Your CV/Resume (PDF only)</label>
+                            <div class="input-group">
+                                <input type="file" class="form-control" id="cv_file" name="cv_file" accept=".pdf" required>
+                            </div>
+                            <div class="form-text">Max file size: 16MB</div>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane me-2"></i>Submit Application
+                            </button>
+                            <a href="{{ url_for('index') }}" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Back to Jobs
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">What happens next?</h5>
+                    <ol class="ps-3">
+                        <li class="mb-2">Our system will analyze your CV and match it against the job requirements.</li>
+                        <li class="mb-2">You'll immediately see how well your profile matches this position.</li>
+                        <li>If there's a good match, you may receive an email from the hiring team for next steps.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Ajouter un style pour préserver les sauts de ligne dans la description du poste */
+.job-description {
+    white-space: pre-line;
+}
+</style>
+{% endblock %}

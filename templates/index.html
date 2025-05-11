@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+
+{% block title %}Recruitment Assistant{% endblock %}
+
+{% block content %}
+<div class="hero-section text-center py-5 mb-4">
+    <div class="container">
+        <h1 class="display-4 mb-3">Find Your Perfect Job</h1>
+        <p class="lead mb-4">Upload your CV and get instant feedback on how well you match with job opportunities.</p>
+    </div>
+</div>
+
+<div class="container mb-5">
+    <!-- Job Listings -->
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4"><i class="fas fa-briefcase me-2"></i>Available Positions</h2>
+            
+            {% if jobs %}
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    {% for job in jobs %}
+                    <div class="col">
+                        <div class="card h-100 job-card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ job.job_title }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ job.company }}</h6>
+                                
+                                {% if job.location %}
+                                <p class="card-text"><i class="fas fa-map-marker-alt me-2 text-primary"></i>{{ job.location }}</p>
+                                {% endif %}
+                                
+                                <p class="card-text description-preview">
+                                    {{ job.description[:150] }}{% if job.description|length > 150 %}...{% endif %}
+                                </p>
+                                
+                                <div class="skills-preview">
+                                    {% for skill in job.technical_skills[:3] %}
+                                    <span class="badge badge-skill">{{ skill }}</span>
+                                    {% endfor %}
+                                    {% if job.technical_skills|length > 3 %}
+                                    <span class="badge bg-secondary">+{{ job.technical_skills|length - 3 }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="card-footer text-center bg-white">
+                                <a href="{{ url_for('view_job', job_id=job.id) }}" class="btn btn-primary">
+                                    View Details & Apply
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="text-center p-5">
+                    <i class="fas fa-briefcase fa-3x text-secondary mb-3"></i>
+                    <h4>No job openings available at the moment</h4>
+                    <p class="text-muted">Please check back later for new opportunities.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- How It Works Section -->
+    <div class="row mt-5 pt-3">
+        <div class="col-12">
+            <h2 class="mb-4 text-center">How It Works</h2>
+            
+            <div class="row text-center">
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="icon-circle mb-3">
+                                <i class="fas fa-search fa-2x"></i>
+                            </div>
+                            <h4>Find Jobs</h4>
+                            <p>Browse through our list of available positions that match your career interests.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="icon-circle mb-3">
+                                <i class="fas fa-file-upload fa-2x"></i>
+                            </div>
+                            <h4>Apply with Your CV</h4>
+                            <p>Upload your CV in PDF format to apply for the position you're interested in.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="icon-circle mb-3">
+                                <i class="fas fa-chart-bar fa-2x"></i>
+                            </div>
+                            <h4>Get Instant Feedback</h4>
+                            <p>Receive an immediate analysis of how well your skills match the job requirements.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block styles %}
+<style>
+.hero-section {
+    background: linear-gradient(135deg, #6f42c1 0%, #007bff 100%);
+    color: white;
+    padding: 60px 0;
+}
+
+.icon-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    color: #007bff;
+}
+
+.job-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.job-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.description-preview {
+    min-height: 70px;
+}
+
+.skills-preview {
+    margin-top: 15px;
+    min-height: 30px;
+}
+
+.badge-skill {
+    background-color: #e9ecef;
+    color: #495057;
+}
+</style>
+{% endblock %}
